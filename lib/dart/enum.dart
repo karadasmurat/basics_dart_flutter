@@ -11,10 +11,10 @@ void main(List<String> args) {
   }
 
   // To get a list of all the enumerated values, use the enum’s values constant.
-  List<Status> stats = Status.values;
-  print(stats[0]);
-
-  decideBasedOnEnum(Direction.west);
+  List<Direction> directions = Direction.values;
+  for (var direction in directions) {
+    decideBasedOnEnum(direction);
+  }
 }
 
 void decideBasedOnEnum(Direction dir) {
@@ -25,6 +25,6 @@ void decideBasedOnEnum(Direction dir) {
       print("Going North");
       break;
     default: // Without this, you see a WARNING.
-      print("Not North? Alright..");
+      print("Not North? Alright, going $dir..");
   }
 }
