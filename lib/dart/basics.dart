@@ -7,14 +7,13 @@ void main(List<String> args) async {
   //variableBasics();
   //operatorBasics();
   //listBasics();
-  //listFunctionsBasics();
+  listFunctionsBasics();
   //comparableBasics();
   //mapBasics();
   //mapFunctionsBasics();
   //asyncBasics();
   //developerBasics();
   //nullSafetyBasics();
-  exceptionBasics();
   //functionBasics();
 }
 
@@ -463,35 +462,6 @@ int cube(int arg) {
   return arg * arg * arg;
 }
 
-void doSomething() {
-  print("Doing my best to handle the exception..");
-}
-
-void mayThrowAnException() {
-  throw MKException("Here is a MKException");
-  //throw FormatException("Here is a format exception");
-}
-
-// You can use either on or catch or both.
-// Use on when you need to specify the exception type.
-// Use catch when your exception handler needs the exception object.
-void exceptionBasics() {
-  try {
-    mayThrowAnException();
-  } on FormatException {
-    doSomething(); // exception object is not needed.
-  } on MKException catch (e) {
-    // Anything else that is an exception
-    print('Exception: $e');
-  } catch (e) {
-    // No specified type, handles all
-    print('Something really unknown: $e');
-  } finally {
-    // To ensure that some code runs whether or not an exception is thrown
-    print("Finally block executes wheter or not an exception is caught."); // Then clean up.
-  }
-}
-
 void functionBasics() {
   //sayHello_positionalParam();      // ERR The analyzer produces 'not_enough_positional_arguments'
   //sayHello_positionalParam(null); // ERR The argument type 'Null' can't be assigned to the parameter type 'String'.
@@ -579,14 +549,4 @@ class Person {
 
   @override
   String toString() => "${super.toString()}, name: $name";
-}
-
-// implementation of [Exception] which carries a message.
-class MKException implements Exception {
-  final String? message;
-
-  MKException([this.message]);
-
-  @override
-  String toString() => message ?? "MKException";
 }
