@@ -39,7 +39,7 @@ void asyncBasics() async {
     print('Caught error: $e');
   }
 
-  // Option 2: Using .then( (T value){} )
+  // Option 2: Using .then( (T value){} ).catchError( (err){} )
   // Lets call an async function, without asigning the result to a variable and await,
   // Instead, call the function and register a callback handler which handles response:
   // callback function's parameter type "T" is the return type of Future<T>
@@ -47,5 +47,7 @@ void asyncBasics() async {
   http.get(Uri.parse('https://jsonplaceholder.typicode.com/photos/1')).then((response) {
     print("Here is the API response:");
     print(response.body);
+  }).catchError((err) {
+    print("Caught Error: $err");
   });
 }
