@@ -71,20 +71,16 @@ List<Photo> parsePhotos(String responseBody) {
 }
 
 Future<List<Car>> createCarsFromJsonFile() async {
-  List<Car> cars = [];
-
   String carsFromJsonFile = await loadAsset("assets/json/cars.json");
   //print(carsFromJsonFile);
   var encodedObj = jsonDecode(carsFromJsonFile);
 
   if (encodedObj is List) {
-    for (var carMap in encodedObj) {
-      //print(carMap);
-      cars.add(Car.fromJson(carMap));
-    }
+    Iterable<Car> cars = encodedObj.map((e) => Car.fromJson(e));
+    return Future.value(cars.toList());
   } else {
+    List<Car> cars = [];
     cars.add(Car.fromJson(encodedObj));
+    return Future.value(cars);
   }
-
-  return Future.value(cars);
 }

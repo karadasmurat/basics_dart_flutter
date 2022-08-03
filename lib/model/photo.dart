@@ -35,6 +35,7 @@ class Photo {
 
   @override
   String toString() => '''{
+    class: $Photo, 
     hashCode: $hashCode, 
     albumId: $albumId,
     id: $id,
