@@ -25,13 +25,21 @@ class Photo {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'albumId': albumId,
-      'id': id,
-      'title': title,
-      'url': url,
-      'thumbnailUrl': thumbnailUrl,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        'albumId': albumId,
+        'id': id,
+        'title': title,
+        'url': url,
+        'thumbnailUrl': thumbnailUrl,
+      };
+
+  @override
+  String toString() => '''{
+    hashCode: $hashCode, 
+    albumId: $albumId,
+    id: $id,
+    title: $title,
+    url: $url,
+    thumbnailUrl: $thumbnailUrl,
+    }''';
 }
