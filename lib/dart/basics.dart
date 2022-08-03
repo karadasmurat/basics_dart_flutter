@@ -7,11 +7,10 @@ void main(List<String> args) async {
   //variableBasics();
   //operatorBasics();
   //listBasics();
-  listFunctionsBasics();
+  //listFunctionsBasics();
   //comparableBasics();
   //mapBasics();
   //mapFunctionsBasics();
-  //asyncBasics();
   //developerBasics();
   //nullSafetyBasics();
   //functionBasics();
@@ -64,26 +63,6 @@ Future<Person> thingsCanGoWrong({bool returnWithError = false}) async {
   if (returnWithError) throw Exception("Ooops");
   Person p = Person("MK");
   return Future.value(p);
-}
-
-void asyncBasics() async {
-  // When you call a function that returns a future without await,
-  // the function queues up work to be done and returns an uncompleted future. (instance of Future)
-  var res = getValue(); // does not wait for the completion, go on.
-  print(res); // Instance of 'Future<Person>'
-
-  print("Life goes on ...");
-
-  Person p01 = await thingsCanGoWrong(); // blocks here.
-  print(p01); // name: MK
-
-  // To handle errors in an async function, use try-catch:
-  try {
-    Person p02 = await thingsCanGoWrong(returnWithError: true);
-    print(p02);
-  } catch (e) {
-    print('Caught error: $e');
-  }
 }
 
 void printContentAndHash(arg) {
