@@ -6,7 +6,5 @@ class Student {
   Student(this.ID, {required this.name, this.major});
 
   @override
-  String toString() {
-    return "${super.toString()}, ID: $ID, name: $name, major: $major";
-  }
+  String toString() => "{class: $Student, hashCode: $hashCode, ID: $ID, name: $name, major: $major}";
 }

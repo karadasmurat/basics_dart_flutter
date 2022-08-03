@@ -6,8 +6,8 @@ void main(List<String> args) {
   var y = x;
 
   // Variables x and y refer to the same object, therefore will have the same hashcode:
-  print("$x, ${x.hashCode}");
-  print("$y, ${y.hashCode}");
+  print(x);
+  print(y);
 
   var box01 = Box("Box01");
   var box02 = Box("Box02");
