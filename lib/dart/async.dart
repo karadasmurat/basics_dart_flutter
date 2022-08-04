@@ -10,10 +10,12 @@ void main(List<String> args) {
   streamBasics();
 }
 
+// To simulate a Future that completes after some time,
+// we can use the Future.delayed() constructor:
 Future<String> getValue() async {
   await Future.delayed(const Duration(seconds: 5));
   print("Value is ready now..");
-  return 'Here are the long expected results ...';
+  return 'Here are the long-awaited results ...';
 }
 
 Future<Person> thingsCanGoWrong({bool returnWithError = false}) async {

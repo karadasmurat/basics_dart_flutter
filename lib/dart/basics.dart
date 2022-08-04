@@ -51,19 +51,9 @@ void operatorBasics() {
     ..goodBye();
 }
 
-Future<String> getValue() async {
-  await Future.delayed(const Duration(seconds: 5));
-  print("Value is ready now..");
-  return 'Here are the long expected results ...';
-}
 
-Future<Person> thingsCanGoWrong({bool returnWithError = false}) async {
-  await Future.delayed(Duration(seconds: 3));
-  print("Have been working hard, hope to return a person soon..");
-  if (returnWithError) throw Exception("Ooops");
-  Person p = Person("MK");
-  return Future.value(p);
-}
+
+
 
 void printContentAndHash(arg) {
   print("$arg with hashcode: ${arg.hashCode}");
