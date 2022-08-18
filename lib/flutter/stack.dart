@@ -20,7 +20,7 @@ class _StackDemoState extends State<StackDemo> {
         height: 300,
         //padding: EdgeInsets.all(10),
         //child: myStack(),
-        child: clipImageWithATextOver("hello"),
+        child: imageWithATextOver("hello"),
       ),
     );
   }
@@ -43,7 +43,7 @@ class _StackDemoState extends State<StackDemo> {
     );
   }
 
-  Widget clipImageWithATextOver(String caption) {
+  Widget imageWithATextOver(String caption) {
     return Stack(
       children: [
         Image.network(

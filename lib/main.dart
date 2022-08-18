@@ -1,6 +1,8 @@
 import 'package:basics_dart/flutter/stack.dart';
 import 'package:flutter/material.dart';
 
+import 'flutter/snackbar.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const StackDemo(),
+      home: const SnackBarDemo(),
     );
   }
 }
