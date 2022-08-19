@@ -1,4 +1,5 @@
 import 'package:basics_dart/flutter/stack.dart';
+import 'package:basics_dart/flutter/stepper.dart';
 import 'package:flutter/material.dart';
 
 import 'flutter/snackbar.dart';
@@ -14,10 +15,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const SnackBarDemo(),
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: const StepperDemo(),
     );
   }
 }
