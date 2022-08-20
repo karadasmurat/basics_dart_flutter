@@ -1,5 +1,8 @@
+import 'package:basics_dart/flutter/mediaquery.dart';
+import 'package:basics_dart/flutter/scaffold.dart';
 import 'package:basics_dart/flutter/stack.dart';
 import 'package:basics_dart/flutter/stepper.dart';
+import 'package:basics_dart/flutter/theme.dart';
 import 'package:flutter/material.dart';
 
 import 'flutter/snackbar.dart';
@@ -16,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const StepperDemo(),
+      home: const ThemeDemo(),
     );
   }
 }

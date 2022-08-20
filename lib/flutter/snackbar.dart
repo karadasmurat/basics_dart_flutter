@@ -5,16 +5,54 @@ class SnackBarDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // re-use existing Theme definitions
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              getSnackBar2(
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae imperdiet sem. Proin mattis non libero quis consectetur."),
-            );
-          },
-          child: Text("Show Message"),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Hello, there",
+                style: textTheme.headline3,
+              ),
+              Text(
+                "This is a demo text - subtitle1",
+                style: textTheme.subtitle1?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et aliqua. Ut enim ad ea commodo consequat.",
+              ),
+              const SizedBox(height: 100),
+              ElevatedButton(
+                onPressed: () {
+                  showSnackBar2(context,
+                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae imperdiet sem. Proin mattis non libero quis consectetur.");
+                },
+                child: const Text("Show Message"),
+              ),
+              ElevatedButton.icon(
+                  onPressed: () {
+                    showSnackBar2(context, "Lorem ipsum dolor sit amet");
+                  },
+                  icon: const Icon(Icons.settings),
+                  label: const Text("ElevatedButton.icon")),
+              OutlinedButton(
+                onPressed: () {},
+                child: const Text("OutlinedButton"),
+              ),
+              TextButton(onPressed: () {}, child: const Text("Text Button")),
+              IconButton(
+                hoverColor: Colors.blueAccent,
+                onPressed: () {},
+                icon: const Icon(Icons.favorite),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -33,27 +71,29 @@ class SnackBarDemo extends StatelessWidget {
     );
   }
 
-  SnackBar getSnackBar2(String content, {Icon? icon}) {
-    return SnackBar(
-      content: Row(
-        children: [
-          // if the parameter is null, use default
-          icon ?? const Icon(Icons.info, color: Colors.white),
-          const SizedBox(width: 10),
-          Flexible(
-            // wrap text with flexible, the text overflow error.
-            child: Text(
-              content,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              softWrap: false,
+  void showSnackBar2(BuildContext context, String content, {Icon? icon}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            // if the parameter is null, use default
+            icon ?? Icon(Icons.info, color: Theme.of(context).secondaryHeaderColor),
+            const SizedBox(width: 10),
+            Flexible(
+              // wrap text with flexible, the text overflow error.
+              child: Text(
+                content,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                softWrap: false,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
+        behavior: SnackBarBehavior.floating,
+        elevation: 6,
+        backgroundColor: Colors.redAccent,
       ),
-      behavior: SnackBarBehavior.floating,
-      elevation: 6,
-      backgroundColor: Colors.redAccent,
     );
   }
 
