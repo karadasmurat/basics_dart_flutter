@@ -1,4 +1,7 @@
+import 'package:basics_dart/flutter/appbar.dart';
 import 'package:flutter/material.dart';
+
+import 'navigation_drawer.dart';
 
 class ThemeDemo extends StatelessWidget {
   const ThemeDemo({Key? key}) : super(key: key);
@@ -10,6 +13,8 @@ class ThemeDemo extends StatelessWidget {
     final elevatedButtonTheme = Theme.of(context).elevatedButtonTheme;
 
     return Scaffold(
+      drawer: const MyDrawer(),
+      appBar: MyAppBar(),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -17,12 +22,14 @@ class ThemeDemo extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Hello, there",
-                style: textTheme.headline3,
+                "Hello",
+                style:
+                    // TextStyle from theme
+                    textTheme.headline1,
               ),
               Text(
-                "This is a demo text - subtitle1",
-                style: textTheme.subtitle1?.copyWith(fontWeight: FontWeight.bold),
+                "custom font - subtitle1",
+                style: textTheme.subtitle1?.copyWith(fontFamily: "Silkscreen"),
               ),
               const SizedBox(height: 10),
               const Text(

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'appbar.dart';
+import 'navigation_drawer.dart';
+
 class SnackBarDemo extends StatelessWidget {
   const SnackBarDemo({Key? key}) : super(key: key);
 
@@ -9,6 +12,8 @@ class SnackBarDemo extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
+      drawer: const MyDrawer(),
+      appBar: const MyAppBar(),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -16,16 +21,12 @@ class SnackBarDemo extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Hello, there",
+                "Snackbar",
                 style: textTheme.headline3,
               ),
               Text(
                 "This is a demo text - subtitle1",
                 style: textTheme.subtitle1?.copyWith(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et aliqua. Ut enim ad ea commodo consequat.",
               ),
               const SizedBox(height: 100),
               ElevatedButton(

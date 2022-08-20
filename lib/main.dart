@@ -1,3 +1,4 @@
+import 'package:basics_dart/flutter/homepage.dart';
 import 'package:basics_dart/flutter/mediaquery.dart';
 import 'package:basics_dart/flutter/scaffold.dart';
 import 'package:basics_dart/flutter/stack.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
           onPrimary: Colors.white,
         )),
       ),
-      home: const ThemeDemo(),
+      home: const ScaffoldDemo(),
     );
   }
 }

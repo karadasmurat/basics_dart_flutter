@@ -1,5 +1,8 @@
 import 'package:basics_dart/constants.dart';
+import 'package:basics_dart/flutter/appbar.dart';
 import 'package:flutter/material.dart';
+
+import 'navigation_drawer.dart';
 
 class ScaffoldDemo extends StatefulWidget {
   const ScaffoldDemo({Key? key}) : super(key: key);
@@ -14,20 +17,8 @@ class _ScaffoldDemoState extends State<ScaffoldDemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const NavigationDrawer(),
-      appBar: AppBar(
-        //backgroundColor: Colors.transparent,
-        backgroundColor: Color(0x44000000),
-        elevation: 0,
-        //leading: Icon(Icons.menu),
-        title: const Text("Scaffold Demo"),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.help),
-          )
-        ],
-      ),
+      drawer: const MyDrawer(),
+      appBar: MyAppBar(),
       extendBodyBehindAppBar: true,
       body: Container(
         child: Image.network(networkImageSrc),
@@ -51,46 +42,6 @@ class _ScaffoldDemoState extends State<ScaffoldDemo> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class NavigationDrawer extends StatefulWidget {
-  const NavigationDrawer({Key? key}) : super(key: key);
-
-  @override
-  State<NavigationDrawer> createState() => _NavigationDrawerState();
-}
-
-class _NavigationDrawerState extends State<NavigationDrawer> {
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [menuItems(context)],
-        ),
-      ),
-    );
-  }
-
-  Widget menuItems(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-        ),
-        ListTile(
-          leading: const Icon(Icons.home_outlined),
-          title: const Text("Home"),
-          onTap: () {},
-        ),
-        ListTile(
-          leading: const Icon(Icons.settings_outlined),
-          title: const Text("Settings"),
-          onTap: () {},
-        )
-      ],
     );
   }
 }

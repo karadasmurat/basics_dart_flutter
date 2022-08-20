@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
+import 'appbar.dart';
+import 'navigation_drawer.dart';
 
 class StepperDemo extends StatefulWidget {
   const StepperDemo({Key? key}) : super(key: key);
@@ -63,6 +64,8 @@ class _StepperDemoState extends State<StepperDemo> {
       // Stepper is a flexible wrapper.
       // A parent class should pass currentStep to this widget
       // based on some logic triggered by the three callbacks that it provides.
+      drawer: const MyDrawer(),
+      appBar: MyAppBar(),
       body: Stepper(
           currentStep: _currentStep, // the index of the step whose content is displayed
           onStepTapped: (int index) {
