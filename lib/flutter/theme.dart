@@ -7,6 +7,7 @@ class ThemeDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     // re-use existing Theme definitions
     final textTheme = Theme.of(context).textTheme;
+    final elevatedButtonTheme = Theme.of(context).elevatedButtonTheme;
 
     return Scaffold(
       body: Center(
@@ -30,11 +31,22 @@ class ThemeDemo extends StatelessWidget {
               const SizedBox(height: 100),
               ElevatedButton(
                 onPressed: () {},
-                child: const Text("Show Message"),
+                child: const Text("Global Theme"),
               ),
               OutlinedButton(
                 onPressed: () {},
                 child: const Text("OutlinedButton"),
+              ),
+              TextButton(
+                onPressed: () {},
+                style: TextButton.styleFrom(
+                  primary: Colors.red,
+                ),
+                child: const Text("TextButton with a style"),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: const Text("TextButton"),
               ),
             ],
           ),
