@@ -8,6 +8,7 @@ class StackDemo extends StatefulWidget {
 }
 
 class _StackDemoState extends State<StackDemo> {
+  // DropdownButton items
   final items = [
     Alignment.topLeft,
     Alignment.topCenter,

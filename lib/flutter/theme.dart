@@ -14,7 +14,11 @@ class ThemeDemo extends StatelessWidget {
 
     return Scaffold(
       drawer: const MyDrawer(),
-      appBar: MyAppBar(),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        elevation: 1,
+        iconTheme: IconThemeData(color: Theme.of(context).colorScheme.secondary),
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

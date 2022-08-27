@@ -1,4 +1,5 @@
 import 'package:basics_dart/flutter/animation.dart';
+import 'package:basics_dart/flutter/custom_font_icon.dart';
 import 'package:basics_dart/flutter/listview.dart';
 import 'package:basics_dart/flutter/scaffold.dart';
 import 'package:basics_dart/flutter/snackbar.dart';
@@ -92,6 +93,15 @@ class _MyDrawerState extends State<MyDrawer> {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => StackDemo()),
+            );
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.format_list_bulleted),
+          title: const Text("Custom Font and Icons"),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => CustomFontIconDemo()),
             );
           },
         )

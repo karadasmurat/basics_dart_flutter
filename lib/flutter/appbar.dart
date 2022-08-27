@@ -1,3 +1,4 @@
+import 'package:basics_dart/flutter/views/settings.dart';
 import 'package:flutter/material.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -13,8 +14,12 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: const Text("Flutter Basics"),
       actions: [
         IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.help),
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => SettingPage()),
+            );
+          },
+          icon: const Icon(Icons.settings),
         )
       ],
     );
