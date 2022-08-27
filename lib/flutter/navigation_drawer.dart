@@ -1,6 +1,8 @@
 import 'package:basics_dart/flutter/animation.dart';
+import 'package:basics_dart/flutter/listview.dart';
 import 'package:basics_dart/flutter/scaffold.dart';
 import 'package:basics_dart/flutter/snackbar.dart';
+import 'package:basics_dart/flutter/stack.dart';
 import 'package:basics_dart/flutter/stepper.dart';
 import 'package:basics_dart/flutter/theme.dart';
 import 'package:flutter/material.dart';
@@ -72,6 +74,24 @@ class _MyDrawerState extends State<MyDrawer> {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => AnimationDemo()),
+            );
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.format_list_bulleted),
+          title: const Text("ListView"),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => ListViewDemo()),
+            );
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.format_list_bulleted),
+          title: const Text("Stack"),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => StackDemo()),
             );
           },
         )

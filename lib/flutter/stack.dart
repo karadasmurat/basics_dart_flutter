@@ -8,19 +8,39 @@ class StackDemo extends StatefulWidget {
 }
 
 class _StackDemoState extends State<StackDemo> {
+  final items = [
+    Alignment.topLeft,
+    Alignment.topCenter,
+    Alignment.center,
+    Alignment.bottomRight
+  ];
+  Alignment? _alignment = Alignment.center;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Stack Demo"),
       ),
-      body: Container(
-        color: Colors.grey,
-        width: double.infinity,
-        height: 300,
-        //padding: EdgeInsets.all(10),
-        //child: myStack(),
-        child: imageWithATextOver("hello"),
+      body: Column(
+        children: [
+          imageWithAnIconOver(
+            const Icon(Icons.favorite),
+            alignment: _alignment,
+          ),
+          myStack(alignment: _alignment),
+          DropdownButton<Alignment>(
+            value: _alignment, //dropdownbutton of Alignment values are Alignment.
+            items: items
+                .map((e) => DropdownMenuItem(value: e, child: Text(e.toString())))
+                .toList(),
+            onChanged: (e) {
+              setState(() {
+                _alignment = e;
+              });
+            },
+          )
+        ],
       ),
     );
   }
@@ -64,12 +84,27 @@ class _StackDemoState extends State<StackDemo> {
   }
 }
 
-Widget myStack() {
+Widget imageWithAnIconOver(Icon icon, {AlignmentGeometry? alignment}) {
+  return Stack(
+    alignment: alignment ?? Alignment.center,
+    children: [
+      Image.network(
+        "https://source.unsplash.com/random/200x200/?car&sig=${icon.semanticLabel}",
+        width: 200,
+        height: 200,
+        fit: BoxFit.cover,
+      ),
+      icon,
+    ],
+  );
+}
+
+Widget myStack({AlignmentGeometry? alignment}) {
   return Stack(
     // beginning of the stack is back of the screen visually,
     // last widget is visible - last in first out
 
-    alignment: Alignment.topCenter,
+    alignment: alignment ?? Alignment.center,
     clipBehavior: Clip.none, //overflow:Overflow.visible
 
     //fit: StackFit.loose,
