@@ -1,12 +1,5 @@
-import 'package:basics_dart/flutter/views/homepage.dart';
-import 'package:basics_dart/flutter/mediaquery.dart';
 import 'package:basics_dart/flutter/scaffold.dart';
-import 'package:basics_dart/flutter/stack.dart';
-import 'package:basics_dart/flutter/stepper.dart';
-import 'package:basics_dart/flutter/theme.dart';
 import 'package:flutter/material.dart';
-
-import 'flutter/snackbar.dart';
 
 void main() {
   runApp(const MyApp());

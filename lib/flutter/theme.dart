@@ -19,6 +19,8 @@ class _ThemeDemoState extends State<ThemeDemo> {
     final textTheme = Theme.of(context).textTheme;
     final elevatedButtonTheme = Theme.of(context).elevatedButtonTheme;
 
+    var screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       drawer: const MyDrawer(),
       appBar: AppBar(
@@ -32,6 +34,11 @@ class _ThemeDemoState extends State<ThemeDemo> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Text("Screen Width: $screenWidth"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: buildCircles(4, screenWidth),
+              ),
               Text(
                 "Hello",
                 style:
@@ -108,6 +115,35 @@ class _ThemeDemoState extends State<ThemeDemo> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  List<Container> buildCircles(int n, double screenWidth) {
+    var width = screenWidth / (1.5 * n); //there is padding etc.
+    debugPrint("width: $width");
+    var circles = <Container>[];
+    for (var i = 0; i < n; i++) {
+      circles.add(myCircleContainer("A", width));
+    }
+
+    return circles;
+  }
+
+  Container myCircleContainer(String content, double size) {
+    return Container(
+      width: size,
+      height: size,
+      margin: const EdgeInsets.all(5),
+      alignment: Alignment.center,
+      decoration: const BoxDecoration(
+        color: Colors.blueAccent,
+        // Circle shape
+        shape: BoxShape.circle,
+      ),
+      child: Text(
+        content,
+        style: Theme.of(context).textTheme.subtitle1?.copyWith(color: Colors.white),
       ),
     );
   }
