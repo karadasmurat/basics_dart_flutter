@@ -1,5 +1,5 @@
-import 'package:basics_dart/flutter/appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'navigation_drawer.dart';
 
@@ -34,17 +34,23 @@ class _ThemeDemoState extends State<ThemeDemo> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Screen Width: $screenWidth"),
+              Text(
+                "Screen Width: $screenWidth",
+                // google_fonts package as the TextStyle
+                style: GoogleFonts.dancingScript(),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: buildCircles(4, screenWidth),
               ),
-              Text(
-                "Hello",
-                style:
-                    // TextStyle from theme
-                    textTheme.headline1,
-              ),
+              const SizedBox(height: 10),
+              Text("Hello",
+                  style:
+                      // TextStyle from theme
+                      //textTheme.headline1,
+
+                      //Applies the font family from Google Fonts to every [TextStyle] in the given [textTheme]
+                      GoogleFonts.dancingScriptTextTheme(textTheme).headline1),
               Text(
                 "custom font - subtitle1",
                 style: textTheme.subtitle1?.copyWith(fontFamily: "Silkscreen"),
@@ -53,7 +59,7 @@ class _ThemeDemoState extends State<ThemeDemo> {
               const Text(
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et aliqua. Ut enim ad ea commodo consequat.",
               ),
-              const SizedBox(height: 60),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {},
                 child: const Text("Global Theme"),
