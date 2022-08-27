@@ -46,7 +46,7 @@ class _ThemeDemoState extends State<ThemeDemo> {
               const Text(
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et aliqua. Ut enim ad ea commodo consequat.",
               ),
-              const SizedBox(height: 100),
+              const SizedBox(height: 60),
               ElevatedButton(
                 onPressed: () {},
                 child: const Text("Global Theme"),
@@ -61,10 +61,11 @@ class _ThemeDemoState extends State<ThemeDemo> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                          side: const BorderSide(color: Colors.white, width: 3)),
+                        borderRadius: BorderRadius.circular(25),
+                        side: const BorderSide(color: Colors.white, width: 3),
+                      ),
                       padding: const EdgeInsets.all(2),
-                      elevation: 0),
+                      elevation: 2),
                   onPressed: () {},
                   child: const Icon(Icons.favorite),
                 ),

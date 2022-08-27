@@ -1,3 +1,4 @@
+import 'package:basics_dart/flutter/appbar.dart';
 import 'package:flutter/material.dart';
 
 class StackDemo extends StatefulWidget {
@@ -17,31 +18,60 @@ class _StackDemoState extends State<StackDemo> {
   ];
   Alignment? _alignment = Alignment.center;
 
+  var _colorblend = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Stack Demo"),
-      ),
-      body: Column(
-        children: [
-          imageWithAnIconOver(
-            const Icon(Icons.favorite),
-            alignment: _alignment,
-          ),
-          myStack(alignment: _alignment),
-          DropdownButton<Alignment>(
-            value: _alignment, //dropdownbutton of Alignment values are Alignment.
-            items: items
-                .map((e) => DropdownMenuItem(value: e, child: Text(e.toString())))
-                .toList(),
-            onChanged: (e) {
-              setState(() {
-                _alignment = e;
-              });
-            },
-          )
-        ],
+      appBar: const MyAppBar(),
+      body: Container(
+        padding: const EdgeInsets.all(5),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 200,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  imageWithATextOver("MK"),
+                  const SizedBox(width: 10),
+                  imageWithAnIconOver(
+                    const Icon(
+                      Icons.favorite,
+                      size: 40,
+                    ),
+                    alignment: _alignment,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 10),
+            getSimpleStack(alignment: _alignment),
+            const SizedBox(height: 10),
+            DropdownButton<Alignment>(
+              value: _alignment, //dropdownbutton of Alignment values are Alignment.
+              items: items
+                  .map((e) => DropdownMenuItem(value: e, child: Text(e.toString())))
+                  .toList(),
+              onChanged: (e) {
+                setState(() {
+                  _alignment = e;
+                });
+              },
+            ),
+            const SizedBox(height: 10),
+            SwitchListTile(
+              title: const Text('Activate BlendMode.color'),
+              value: _colorblend,
+              onChanged: (bool value) {
+                setState(() {
+                  _colorblend = value;
+                });
+              },
+              secondary: const Icon(Icons.lightbulb_outline),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -58,7 +88,7 @@ class _StackDemoState extends State<StackDemo> {
             fit: BoxFit.cover,
           ),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Text(caption)
       ],
     );
@@ -67,68 +97,83 @@ class _StackDemoState extends State<StackDemo> {
   Widget imageWithATextOver(String caption) {
     return Stack(
       children: [
-        Image.network(
-          "https://source.unsplash.com/random/200x200/?car&sig=$caption",
-          width: 200,
-          height: 200,
-          fit: BoxFit.cover,
+        ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Image.network(
+            "https://source.unsplash.com/random/300x300/?car&sig=$caption",
+            width: 200,
+            height: 200,
+            fit: BoxFit.cover,
+            color: _colorblend ? Colors.purple : null,
+            colorBlendMode: _colorblend ? BlendMode.color : null,
+          ),
         ),
-        Text(
-          caption,
-          style: const TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
+        Positioned(
+          bottom: 10,
+          right: 10,
+          child: Text(
+            caption,
+            style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white),
           ),
         ),
       ],
     );
   }
-}
 
-Widget imageWithAnIconOver(Icon icon, {AlignmentGeometry? alignment}) {
-  return Stack(
-    alignment: alignment ?? Alignment.center,
-    children: [
-      Image.network(
-        "https://source.unsplash.com/random/200x200/?car&sig=${icon.semanticLabel}",
-        width: 200,
-        height: 200,
-        fit: BoxFit.cover,
-      ),
-      icon,
-    ],
-  );
-}
+  Widget imageWithAnIconOver(Icon icon, {AlignmentGeometry? alignment}) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Image.network(
+            "https://source.unsplash.com/random/200x200/?car&sig=${icon.semanticLabel}",
+            width: 200,
+            height: 200,
+            fit: BoxFit.cover,
+            color: Colors.red,
+            colorBlendMode: BlendMode.color,
+          ),
+        ),
+        Positioned(
+          bottom: 10,
+          right: 10,
+          child: icon,
+        ),
+      ],
+    );
+  }
 
-Widget myStack({AlignmentGeometry? alignment}) {
-  return Stack(
-    // beginning of the stack is back of the screen visually,
-    // last widget is visible - last in first out
+  Widget getSimpleStack({AlignmentGeometry? alignment}) {
+    return Stack(
+      // beginning of the stack is back of the screen visually,
+      // last widget is visible - last in first out
 
-    alignment: alignment ?? Alignment.center,
-    clipBehavior: Clip.none, //overflow:Overflow.visible
+      alignment: alignment ?? Alignment.center,
+      clipBehavior: Clip.none, //overflow:Overflow.visible
 
-    //fit: StackFit.loose,
-    children: [
-      Container(
-        color: Colors.amberAccent,
-        width: 330,
-        height: 220,
-      ),
-      Container(
-        color: Colors.orangeAccent,
-        width: 150,
-        height: 150,
-      ),
-      Positioned(
-        bottom: -20, // overflow
-        right: 10,
-        child: Container(
-          color: Colors.redAccent,
-          width: 100,
+      //fit: StackFit.loose,
+      children: [
+        Container(
+          color: Colors.amberAccent,
+          width: 330,
+          height: 220,
+        ),
+        Container(
+          color: Colors.orangeAccent,
+          width: 150,
           height: 150,
         ),
-      ),
-    ],
-  );
+        Positioned(
+          bottom: -20, // overflow
+          right: 10,
+          child: Container(
+            color: Colors.redAccent,
+            width: 100,
+            height: 150,
+          ),
+        ),
+      ],
+    );
+  }
 }
