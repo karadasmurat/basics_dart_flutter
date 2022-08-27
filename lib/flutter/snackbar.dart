@@ -36,22 +36,6 @@ class SnackBarDemo extends StatelessWidget {
                 },
                 child: const Text("Show Message"),
               ),
-              ElevatedButton.icon(
-                  onPressed: () {
-                    showSnackBar2(context, "Lorem ipsum dolor sit amet");
-                  },
-                  icon: const Icon(Icons.settings),
-                  label: const Text("ElevatedButton.icon")),
-              OutlinedButton(
-                onPressed: () {},
-                child: const Text("OutlinedButton"),
-              ),
-              TextButton(onPressed: () {}, child: const Text("Text Button")),
-              IconButton(
-                hoverColor: Colors.blueAccent,
-                onPressed: () {},
-                icon: const Icon(Icons.favorite),
-              ),
             ],
           ),
         ),
