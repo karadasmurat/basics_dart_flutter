@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'appbar.dart';
 import 'navigation_drawer.dart';
@@ -12,6 +13,7 @@ class SnackBarDemo extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
+      backgroundColor: Colors.blue[800],
       drawer: const MyDrawer(),
       appBar: const MyAppBar(),
       body: Center(
@@ -20,21 +22,75 @@ class SnackBarDemo extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Icon(
+                Icons.message,
+                size: 60,
+                color: Colors.blue[100],
+              ),
               Text(
                 "Snackbar",
-                style: textTheme.headline3,
-              ),
-              Text(
-                "This is a demo text - subtitle1",
-                style: textTheme.subtitle1?.copyWith(fontWeight: FontWeight.bold),
+                style: textTheme.headline3?.copyWith(color: Colors.blue[100]),
               ),
               const SizedBox(height: 100),
-              ElevatedButton(
-                onPressed: () {
-                  showSnackBar2(context,
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae imperdiet sem. Proin mattis non libero quis consectetur.");
-                },
-                child: const Text("Show Message"),
+
+              // button row
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.blue[100],
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Column(
+                      children: [
+                        // Force text in the direction of mainaxisalignment (down)
+                        Expanded(
+                          child: Icon(
+                            Icons.message,
+                            size: 30,
+                            color: Colors.blue[900],
+                          ),
+                        ),
+                        Text(
+                          "Show",
+                          style: TextStyle(
+                            color: Colors.blue[900],
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      showSnackBar2(context,
+                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae imperdiet sem. Proin mattis non libero quis consectetur.");
+                    },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(100, 100),
+                      primary: Colors.pink,
+                      padding: const EdgeInsets.all(8),
+                      // OutlinedBorder
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      textStyle: const TextStyle(
+                        //fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    child: Column(
+                      children: const [
+                        Expanded(child: Icon(Icons.message, size: 30)),
+                        Text("Show"),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
