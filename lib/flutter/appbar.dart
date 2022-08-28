@@ -8,7 +8,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       //backgroundColor: Colors.transparent,
-      backgroundColor: Color(0x44000000),
+      //append 0x00 to hex code for full transparency
+      //ie, half transparent black #000000 - 0x800000
+      backgroundColor: Color(0x80000000),
       elevation: 0,
       //leading: Icon(Icons.menu),
       title: const Text("Flutter Basics"),

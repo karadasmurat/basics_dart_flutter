@@ -1,4 +1,5 @@
 import 'package:basics_dart/flutter/appbar.dart';
+import 'package:basics_dart/flutter/widgets/circled_icon.dart';
 import 'package:flutter/material.dart';
 
 class StackDemo extends StatefulWidget {
@@ -23,24 +24,23 @@ class _StackDemoState extends State<StackDemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       appBar: const MyAppBar(),
       body: Container(
         padding: const EdgeInsets.all(5),
         child: Column(
+          //crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // put listview in a sizedbox
             SizedBox(
-              height: 150,
+              height: 130,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
                   imageWithATextOver("MK"),
                   const SizedBox(width: 10),
-                  imageWithAnIconOver(
-                    const Icon(
-                      Icons.favorite,
-                      size: 40,
-                    ),
+                  imageWithARoundedIconOver(
+                    Icons.favorite,
                     alignment: _alignment,
                   ),
                 ],
@@ -49,7 +49,16 @@ class _StackDemoState extends State<StackDemo> {
             const SizedBox(height: 10),
             getSimpleStack(alignment: _alignment),
             const SizedBox(height: 10),
-            DropdownButton<Alignment>(
+            //DropdownButtonFormField instead of DropdownButton
+            DropdownButtonFormField<Alignment>(
+              decoration: const InputDecoration(
+                labelText: "Alignment",
+                prefixIcon: Icon(Icons.open_with),
+                //icon: Icon(Icons.send),
+                border: OutlineInputBorder(),
+              ),
+              dropdownColor: Colors.blue[100],
+
               value: _alignment, //dropdownbutton of Alignment values are Alignment.
               items: items
                   .map((e) => DropdownMenuItem(value: e, child: Text(e.toString())))
@@ -61,17 +70,19 @@ class _StackDemoState extends State<StackDemo> {
               },
             ),
             const SizedBox(height: 10),
-            SwitchListTile(
-              title: const Text('Activate BlendMode.color'),
-              value: _colorblend,
-              onChanged: (bool value) {
-                setState(() {
-                  _colorblend = value;
-                });
-              },
-              secondary: const Icon(Icons.lightbulb_outline),
+            Card(
+              child: SwitchListTile(
+                title: const Text('Activate BlendMode.color'),
+                value: _colorblend,
+                onChanged: (bool value) {
+                  setState(() {
+                    _colorblend = value;
+                  });
+                },
+                secondary: const Icon(Icons.lightbulb_outline),
+              ),
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             overflowingImage("assets/images/imgbin_giraffe.png"),
           ],
         ),
@@ -86,8 +97,8 @@ class _StackDemoState extends State<StackDemo> {
           borderRadius: BorderRadius.circular(20),
           child: Image.network(
             "https://source.unsplash.com/random/200x200/?car&sig=$caption",
-            width: 150,
-            height: 150,
+            width: 120,
+            height: 120,
             fit: BoxFit.cover,
           ),
         ),
@@ -104,8 +115,8 @@ class _StackDemoState extends State<StackDemo> {
           borderRadius: BorderRadius.circular(20),
           child: Image.network(
             "https://source.unsplash.com/random/300x300/?car&sig=$caption",
-            width: 150,
-            height: 150,
+            width: 120,
+            height: 120,
             fit: BoxFit.cover,
             color: _colorblend ? Colors.purple : null,
             colorBlendMode: _colorblend ? BlendMode.color : null,
@@ -125,23 +136,47 @@ class _StackDemoState extends State<StackDemo> {
 
   Widget imageWithAnIconOver(Icon icon, {AlignmentGeometry? alignment}) {
     return Stack(
+      clipBehavior: Clip.none,
       alignment: Alignment.center,
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: Image.network(
             "https://source.unsplash.com/random/200x200/?car&sig=${icon.semanticLabel}",
-            width: 200,
-            height: 200,
+            width: 120,
+            height: 120,
             fit: BoxFit.cover,
             color: Colors.red,
             colorBlendMode: BlendMode.color,
           ),
         ),
         Positioned(
-          bottom: 10,
+          bottom: -5,
           right: 10,
           child: icon,
+        ),
+      ],
+    );
+  }
+
+  Widget imageWithARoundedIconOver(IconData iconData, {AlignmentGeometry? alignment}) {
+    return Stack(
+      clipBehavior: Clip.none,
+      alignment: Alignment.center,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Image.network(
+            "https://source.unsplash.com/random/200x200/?car&sig=${iconData.hashCode}",
+            width: 120,
+            height: 120,
+            fit: BoxFit.cover,
+          ),
+        ),
+        const Positioned(
+          bottom: 10,
+          right: 10,
+          child: CircledIcon(iconData: Icons.add_circle),
         ),
       ],
     );

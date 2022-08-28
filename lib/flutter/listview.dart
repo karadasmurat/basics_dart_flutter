@@ -1,5 +1,6 @@
 import 'package:basics_dart/flutter/appbar.dart';
 import 'package:basics_dart/flutter/navigation_drawer.dart';
+import 'package:basics_dart/flutter/views/details.dart';
 import 'package:flutter/material.dart';
 import '../model/car.dart';
 import 'views/car_view.dart';
@@ -95,6 +96,7 @@ class _ListViewDemoState extends State<ListViewDemo> {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
+                    //builder: (context) => DetailsPage(car),
                     builder: (context) => CarPage(car),
                   ),
                 );
@@ -148,12 +150,18 @@ Widget imageWithACaption(BuildContext context, String caption) {
     children: [
       ClipRRect(
         borderRadius: BorderRadius.circular(20),
-        child: Image.network(
-          "https://source.unsplash.com/random/200x200/?car&sig=$caption",
-          width: 150,
-          height: 150,
+        child: FadeInImage.assetNetwork(
+          placeholder: "assets/images/loading.gif",
+          height: 100,
           fit: BoxFit.cover,
+          image: "https://source.unsplash.com/random/200x200/?car&$caption",
         ),
+        // Image.network(
+        //   "https://source.unsplash.com/random/200x200/?car&sig=$caption",
+        //   width: 150,
+        //   height: 150,
+        //   fit: BoxFit.cover,
+        // ),
       ),
       const SizedBox(height: 10),
       Text(
