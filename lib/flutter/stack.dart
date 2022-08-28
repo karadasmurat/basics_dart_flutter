@@ -28,8 +28,9 @@ class _StackDemoState extends State<StackDemo> {
         padding: const EdgeInsets.all(5),
         child: Column(
           children: [
+            // put listview in a sizedbox
             SizedBox(
-              height: 200,
+              height: 150,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
@@ -69,7 +70,9 @@ class _StackDemoState extends State<StackDemo> {
                 });
               },
               secondary: const Icon(Icons.lightbulb_outline),
-            )
+            ),
+            SizedBox(height: 50),
+            overflowingImage("assets/images/imgbin_giraffe.png"),
           ],
         ),
       ),
@@ -101,8 +104,8 @@ class _StackDemoState extends State<StackDemo> {
           borderRadius: BorderRadius.circular(20),
           child: Image.network(
             "https://source.unsplash.com/random/300x300/?car&sig=$caption",
-            width: 200,
-            height: 200,
+            width: 150,
+            height: 150,
             fit: BoxFit.cover,
             color: _colorblend ? Colors.purple : null,
             colorBlendMode: _colorblend ? BlendMode.color : null,
@@ -156,23 +159,49 @@ class _StackDemoState extends State<StackDemo> {
       children: [
         Container(
           color: Colors.amberAccent,
-          width: 330,
-          height: 220,
+          width: 220,
+          height: 150,
         ),
         Container(
           color: Colors.orangeAccent,
-          width: 150,
-          height: 150,
+          width: 100,
+          height: 100,
         ),
         Positioned(
           bottom: -20, // overflow
           right: 10,
           child: Container(
             color: Colors.redAccent,
-            width: 100,
-            height: 150,
+            width: 50,
+            height: 75,
           ),
         ),
+      ],
+    );
+  }
+
+  Stack overflowingImage(String imgPath) {
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+          width: 200,
+          height: 150,
+          decoration: BoxDecoration(
+            color: Colors.blue[100],
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
+        Positioned(
+          bottom: 0,
+          left: 0,
+          child: Image.asset(
+            imgPath,
+            width: 180,
+            height: 180,
+            fit: BoxFit.cover,
+          ),
+        )
       ],
     );
   }

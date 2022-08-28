@@ -6,6 +6,7 @@ import 'package:basics_dart/flutter/snackbar.dart';
 import 'package:basics_dart/flutter/stack.dart';
 import 'package:basics_dart/flutter/stepper.dart';
 import 'package:basics_dart/flutter/theme.dart';
+import 'package:basics_dart/flutter/views/gamestore_ui.dart';
 import 'package:flutter/material.dart';
 
 class MyDrawer extends StatefulWidget {
@@ -102,6 +103,15 @@ class _MyDrawerState extends State<MyDrawer> {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => BottomSheetDemo()),
+            );
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.gamepad),
+          title: const Text("GameStore UI"),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => GameStoreHome()),
             );
           },
         )

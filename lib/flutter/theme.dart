@@ -128,13 +128,14 @@ class _ThemeDemoState extends State<ThemeDemo> {
   }
 
   List<Container> buildCircles(int n, double screenWidth) {
-    const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz';
+    //const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz';
+    const _emojis = ['😎', '🇹🇷', '🥳', '👍', '🧠', '⚽️', '🐶', '🍓', '⛱', '🖥'];
 
     var width = screenWidth / (1.5 * n); //there is padding etc.
     //debugPrint("width: $width");
     var circles = <Container>[];
     for (var i = 0; i < n; i++) {
-      var randomChar = _chars[Random().nextInt(_chars.length)];
+      var randomChar = _emojis[Random().nextInt(_emojis.length)];
       var randomAccent = Colors.accents[Random().nextInt(Colors.accents.length)];
       circles.add(myCircleContainer(randomChar, width, color: randomAccent));
     }
@@ -155,7 +156,7 @@ class _ThemeDemoState extends State<ThemeDemo> {
       ),
       child: Text(
         content,
-        style: Theme.of(context).textTheme.subtitle1,
+        style: const TextStyle(fontSize: 30),
       ),
     );
   }

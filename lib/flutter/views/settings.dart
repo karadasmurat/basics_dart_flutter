@@ -30,16 +30,17 @@ class _SettingPageState extends State<SettingPage> {
             ),
             Positioned(
               bottom: 0,
-              right: -12,
+              right: -20,
               child: SizedBox(
-                width: 40,
-                height: 40,
+                width: 50,
+                height: 50,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(25),
                           side: const BorderSide(color: Colors.white, width: 3)),
-                      padding: const EdgeInsets.all(2)),
+                      padding: const EdgeInsets.all(2),
+                      elevation: 0),
                   onPressed: () {},
                   child: const Icon(Icons.favorite),
                 ),
