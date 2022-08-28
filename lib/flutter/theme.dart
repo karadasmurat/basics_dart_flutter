@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -126,30 +128,34 @@ class _ThemeDemoState extends State<ThemeDemo> {
   }
 
   List<Container> buildCircles(int n, double screenWidth) {
+    const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz';
+
     var width = screenWidth / (1.5 * n); //there is padding etc.
-    debugPrint("width: $width");
+    //debugPrint("width: $width");
     var circles = <Container>[];
     for (var i = 0; i < n; i++) {
-      circles.add(myCircleContainer("A", width));
+      var randomChar = _chars[Random().nextInt(_chars.length)];
+      var randomAccent = Colors.accents[Random().nextInt(Colors.accents.length)];
+      circles.add(myCircleContainer(randomChar, width, color: randomAccent));
     }
 
     return circles;
   }
 
-  Container myCircleContainer(String content, double size) {
+  Container myCircleContainer(String content, double size, {Color? color}) {
     return Container(
       width: size,
       height: size,
       margin: const EdgeInsets.all(5),
       alignment: Alignment.center,
-      decoration: const BoxDecoration(
-        color: Colors.blueAccent,
+      decoration: BoxDecoration(
+        color: color ?? Colors.blueAccent,
         // Circle shape
         shape: BoxShape.circle,
       ),
       child: Text(
         content,
-        style: Theme.of(context).textTheme.subtitle1?.copyWith(color: Colors.white),
+        style: Theme.of(context).textTheme.subtitle1,
       ),
     );
   }

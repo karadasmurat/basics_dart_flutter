@@ -1,6 +1,6 @@
 import 'package:basics_dart/flutter/animation.dart';
-import 'package:basics_dart/flutter/custom_font_icon.dart';
 import 'package:basics_dart/flutter/listview.dart';
+import 'package:basics_dart/flutter/modal_bottom_sheet.dart';
 import 'package:basics_dart/flutter/scaffold.dart';
 import 'package:basics_dart/flutter/snackbar.dart';
 import 'package:basics_dart/flutter/stack.dart';
@@ -97,11 +97,11 @@ class _MyDrawerState extends State<MyDrawer> {
           },
         ),
         ListTile(
-          leading: const Icon(Icons.format_list_bulleted),
-          title: const Text("Custom Font and Icons"),
+          leading: const Icon(Icons.upload),
+          title: const Text("BottomSheet"),
           onTap: () {
             Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => CustomFontIconDemo()),
+              MaterialPageRoute(builder: (context) => BottomSheetDemo()),
             );
           },
         )
