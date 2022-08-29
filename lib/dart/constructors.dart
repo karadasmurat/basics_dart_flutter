@@ -42,10 +42,23 @@ class Point {
 /// Only classes with a const constructor can be instantiated using const keyword.
 class Phone {
   static const initialCapacity = 16;
-  final String make, model;
+
+  // final fields, to be initialized in the "constructor" ONCE.
+  // not initialized here.
+
+  //non-nullable fields
+  // 1. positional arg, (make)
+  // 2. an optional with a. required annotation or default value (numOfSIM).
+  final String make;
+  final int numOfSIM;
+  final bool? isUsed;
 
   // To define a const constructor, all fields of a class must be final.
-  const Phone(this.make, this.model);
+  const Phone(this.make, {this.numOfSIM = 1, this.isUsed});
+
+  @override
+  String toString() =>
+      "{hashcode: $hashCode, make: $make ,isUsed: $isUsed ,numOfSIM: $numOfSIM }";
 }
 
 class SimpleParent {
@@ -93,7 +106,8 @@ class Exam {
         isTop = score > 90 ? true : false;
 
   @override
-  String toString() => "{score: $score, calculatedScore: $calculatedScore, isTop: $isTop, hashCode: $hashCode}";
+  String toString() =>
+      "{score: $score, calculatedScore: $calculatedScore, isTop: $isTop, hashCode: $hashCode}";
 }
 
 void main(List<String> args) {
@@ -126,18 +140,18 @@ void main(List<String> args) {
   printTitle("const Constructors");
 
   // const keyword not used
-  var phone01 = Phone("iPhone", "12");
-  var phone02 = Phone("iPhone", "12");
+  var phone01 = Phone("IPhone");
+  var phone02 = Phone("iPhone");
   // const keyword used
-  var phone03 = const Phone("Samsung", "Galaxy S21");
-  var phone04 = const Phone("Samsung", "Galaxy S21");
+  var phone03 = const Phone("Samsung");
+  var phone04 = const Phone("Samsung");
 
-  print(phone01.hashCode);
-  print(phone02.hashCode);
+  print(phone01);
+  print(phone02);
   //check whether 2 references are to the same object.
   print(identical(phone01, phone02)); // false
 
-  print(phone03.hashCode);
-  print(phone04.hashCode);
+  print(phone03);
+  print(phone04);
   print(identical(phone03, phone04)); // true, const canonicalizes.
 }
