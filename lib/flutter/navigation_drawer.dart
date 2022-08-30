@@ -2,11 +2,14 @@ import 'package:basics_dart/flutter/animation.dart';
 import 'package:basics_dart/flutter/listview.dart';
 import 'package:basics_dart/flutter/modal_bottom_sheet.dart';
 import 'package:basics_dart/flutter/scaffold.dart';
+import 'package:basics_dart/flutter/sharedpreferences.dart';
+import 'package:basics_dart/flutter/sharedpreferences_pubexample.dart';
 import 'package:basics_dart/flutter/snackbar.dart';
 import 'package:basics_dart/flutter/stack.dart';
 import 'package:basics_dart/flutter/stepper.dart';
 import 'package:basics_dart/flutter/theme.dart';
 import 'package:basics_dart/flutter/views/gamestore_ui.dart';
+import 'package:basics_dart/flutter/pageview.dart';
 import 'package:flutter/material.dart';
 
 class MyDrawer extends StatefulWidget {
@@ -112,6 +115,24 @@ class _MyDrawerState extends State<MyDrawer> {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => GameStoreHome()),
+            );
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.save),
+          title: const Text("Shared Preferences"),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => SharedPrefDemo()),
+            );
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.save),
+          title: const Text("PageView Demo"),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => PageViewDemo()),
             );
           },
         )

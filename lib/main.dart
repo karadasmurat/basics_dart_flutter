@@ -15,10 +15,19 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-          primary: Colors.deepPurpleAccent,
-          onPrimary: Colors.white,
-        )),
+          style: ElevatedButton.styleFrom(
+            primary: Colors.deepPurpleAccent,
+            onPrimary: Colors.white,
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              color: Colors.red,
+            ),
+          ),
+        ),
       ),
       home: const ScaffoldDemo(),
     );

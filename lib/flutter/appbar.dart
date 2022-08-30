@@ -2,7 +2,8 @@ import 'package:basics_dart/flutter/views/settings.dart';
 import 'package:flutter/material.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const MyAppBar({Key? key}) : super(key: key);
+  final Widget? title;
+  const MyAppBar({Key? key, this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Color(0x80000000),
       elevation: 0,
       //leading: Icon(Icons.menu),
-      title: const Text("Flutter Basics"),
+      title: title,
       actions: [
         IconButton(
           onPressed: () {
