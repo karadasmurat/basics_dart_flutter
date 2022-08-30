@@ -14,7 +14,6 @@ class SnackBarDemo extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.blue[800],
-      drawer: const MyDrawer(),
       appBar: const MyAppBar(),
       body: Center(
         child: Padding(
