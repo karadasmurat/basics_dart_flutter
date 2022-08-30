@@ -1,4 +1,4 @@
-import 'package:basics_dart/flutter/views/emptyPages.dart';
+import 'package:basics_dart/flutter/views/page_with_text.dart';
 import 'package:flutter/material.dart';
 
 class PageViewDemo extends StatefulWidget {
@@ -22,13 +22,14 @@ class _PageViewDemoState extends State<PageViewDemo> {
     pages = [
       const PageWithText(
         backgroundColor: Colors.green,
-        text: "Page 1",
+        header: "Scroll, or use the arrows.",
+        text: "Use your finger to scroll, or click on the arrows.",
       ),
       const PageWithText(
         backgroundColor: Colors.orange,
-        text: "Page 2",
+        header: "Page 2",
       ),
-      const PageWithText(text: "Page 3")
+      const PageWithText(header: "Page 3")
     ];
   }
 
