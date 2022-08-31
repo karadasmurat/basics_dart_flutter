@@ -41,10 +41,6 @@ class _ThemeDemoState extends State<ThemeDemo> {
                 // google_fonts package as the TextStyle
                 style: GoogleFonts.dancingScript(),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: buildCircles(4, screenWidth),
-              ),
               const SizedBox(height: 10),
               Text("Hello",
                   style:
@@ -123,40 +119,6 @@ class _ThemeDemoState extends State<ThemeDemo> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  List<Container> buildCircles(int n, double screenWidth) {
-    //const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz';
-    const _emojis = ['😎', '🇹🇷', '🥳', '👍', '🧠', '⚽️', '🐶', '🍓', '⛱', '🖥'];
-
-    var width = screenWidth / (1.5 * n); //there is padding etc.
-    //debugPrint("width: $width");
-    var circles = <Container>[];
-    for (var i = 0; i < n; i++) {
-      var randomChar = _emojis[Random().nextInt(_emojis.length)];
-      var randomAccent = Colors.accents[Random().nextInt(Colors.accents.length)];
-      circles.add(myCircleContainer(randomChar, width, color: randomAccent));
-    }
-
-    return circles;
-  }
-
-  Container myCircleContainer(String content, double size, {Color? color}) {
-    return Container(
-      width: size,
-      height: size,
-      margin: const EdgeInsets.all(5),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: color ?? Colors.blueAccent,
-        // Circle shape
-        shape: BoxShape.circle,
-      ),
-      child: Text(
-        content,
-        style: const TextStyle(fontSize: 30),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:basics_dart/flutter/animation.dart';
+import 'package:basics_dart/flutter/constants.dart';
 import 'package:basics_dart/flutter/listview.dart';
 import 'package:basics_dart/flutter/modal_bottom_sheet.dart';
 import 'package:basics_dart/flutter/scaffold.dart';
@@ -35,7 +36,7 @@ class _MyDrawerState extends State<MyDrawer> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(colors: [Colors.blue[200]!, Colors.blue[900]!]),
                 //color: Colors.blue[200],
-                // borderRadius: BorderRadius.vertical(bottom: Radius.circular(24)),
+                borderRadius: kCircularBottomRadius,
                 // shape: BoxShape.circle,
                 // image: const DecorationImage(
                 //   image: NetworkImage(

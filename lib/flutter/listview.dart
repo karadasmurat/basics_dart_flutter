@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:basics_dart/flutter/appbar.dart';
+import 'package:basics_dart/flutter/constants.dart';
 import 'package:basics_dart/flutter/navigation_drawer.dart';
 import 'package:basics_dart/flutter/views/details.dart';
 import 'package:flutter/material.dart';
@@ -21,12 +24,25 @@ class _ListViewDemoState extends State<ListViewDemo> {
   ];
   @override
   Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: const MyAppBar(),
       drawer: const MyDrawer(),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: kBottomNavigationBarHeight),
+          Padding(
+            padding: kHorizontalPadding,
+            child: Text("Items", style: Theme.of(context).textTheme.subtitle1),
+          ),
+          // row, without scroll capability
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: buildCircles(4, screenWidth),
+          ),
           horizontalListView(),
           listWithNavigation(),
         ],
@@ -170,5 +186,55 @@ Widget imageWithACaption(BuildContext context, String caption) {
             Theme.of(context).textTheme.bodyText1?.copyWith(fontWeight: FontWeight.bold),
       )
     ],
+  );
+}
+
+List<Container> buildCircles(int n, double screenWidth) {
+  //const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz';
+  const emojis = [
+    '\u2764',
+    '😍',
+    '🦄',
+    '🐞',
+    '😎',
+    '🇹🇷',
+    '🥳',
+    '👍',
+    '🧠',
+    '⚽️',
+    '🐶',
+    '🍓',
+    '⛱',
+    '🖥'
+  ];
+
+  var width = screenWidth / (1.5 * n); //there is padding etc.
+  //debugPrint("width: $width");
+  var circles = <Container>[];
+  for (var i = 0; i < n; i++) {
+    var randomChar = emojis[Random().nextInt(emojis.length)];
+    var randomAccent = Colors.accents[Random().nextInt(Colors.accents.length)];
+    circles.add(myCircleContainer(randomChar, width, color: randomAccent));
+    //circles.add(myCircleContainer('\u2764', width, color: randomAccent));
+  }
+
+  return circles;
+}
+
+Container myCircleContainer(String content, double size, {Color? color}) {
+  return Container(
+    width: size,
+    height: size,
+    margin: const EdgeInsets.all(5),
+    alignment: Alignment.center,
+    decoration: BoxDecoration(
+      color: color ?? Colors.blueAccent,
+      // Circle shape
+      shape: BoxShape.circle,
+    ),
+    child: Text(
+      content,
+      style: const TextStyle(fontSize: 30),
+    ),
   );
 }
