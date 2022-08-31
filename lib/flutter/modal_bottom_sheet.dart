@@ -1,4 +1,5 @@
 import 'package:basics_dart/flutter/appbar.dart';
+import 'package:basics_dart/flutter/constants.dart';
 import 'package:flutter/material.dart';
 
 class BottomSheetDemo extends StatefulWidget {
@@ -101,17 +102,13 @@ class _BottomSheetDemoState extends State<BottomSheetDemo> {
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: Colors.blue[100],
-                      borderRadius: const BorderRadius.vertical(
-                        bottom: Radius.circular(20),
-                      ),
+                      borderRadius: kCircularBottomRadius,
                     ),
                     child: const Text("Decoration\n\nvertical"),
                   ),
                   const SizedBox(width: 10),
                   ClipRRect(
-                    borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(20),
-                    ),
+                    borderRadius: kCircularTopRadius,
                     child: Container(
                       padding: EdgeInsets.all(10),
                       width: 100,
