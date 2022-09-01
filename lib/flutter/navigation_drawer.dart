@@ -1,4 +1,4 @@
-import 'package:basics_dart/flutter/animation.dart';
+import 'package:basics_dart/flutter/animation_controller.dart';
 import 'package:basics_dart/flutter/constants.dart';
 import 'package:basics_dart/flutter/listview.dart';
 import 'package:basics_dart/flutter/modal_bottom_sheet.dart';
@@ -8,6 +8,7 @@ import 'package:basics_dart/flutter/snackbar.dart';
 import 'package:basics_dart/flutter/stack.dart';
 import 'package:basics_dart/flutter/stepper.dart';
 import 'package:basics_dart/flutter/theme.dart';
+import 'package:basics_dart/flutter/animations.dart';
 import 'package:basics_dart/flutter/views/gamestore_ui.dart';
 import 'package:basics_dart/flutter/pageview.dart';
 import 'package:flutter/material.dart';
@@ -88,15 +89,6 @@ class _MyDrawerState extends State<MyDrawer> {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.animation),
-            title: const Text("Animation"),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => AnimationDemo()),
-              );
-            },
-          ),
-          ListTile(
             leading: const Icon(Icons.format_list_bulleted),
             title: const Text("ListView"),
             onTap: () {
@@ -147,6 +139,15 @@ class _MyDrawerState extends State<MyDrawer> {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => PageViewDemo()),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.save),
+            title: const Text("Animations"),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => AnimationDemo()),
               );
             },
           )
