@@ -23,9 +23,13 @@ class SnackBarDemo extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Badge(
-                badgeContent: const Text("3"),
+                badgeContent: const Text(
+                  "3",
+                  style: TextStyle(color: Colors.white),
+                ),
                 position: BadgePosition.topEnd(),
                 padding: EdgeInsets.all(8),
+                animationType: BadgeAnimationType.scale,
                 child: const Card(
                   child: Padding(
                     padding: EdgeInsets.all(10.0),

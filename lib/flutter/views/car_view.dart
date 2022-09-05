@@ -1,6 +1,7 @@
 import 'package:basics_dart/flutter/appbar.dart';
 import 'package:basics_dart/flutter/widgets/circled_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 // flutter pub add transparent_image
 
@@ -91,6 +92,18 @@ class CarPage extends StatelessWidget {
                 const Text(
                   "Lorem ipsum dolor sit amet, incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                 ),
+                const SizedBox(height: 40),
+                RatingBar(
+                    minRating: 1,
+                    maxRating: 5,
+                    initialRating: 3,
+                    allowHalfRating: false,
+                    itemSize: 24,
+                    ratingWidget: RatingWidget(
+                        full: const Icon(Icons.star, color: Colors.amber),
+                        half: Icon(Icons.star, color: Colors.red),
+                        empty: const Icon(Icons.star, color: Colors.grey)),
+                    onRatingUpdate: (val) {})
               ],
             ),
           )
