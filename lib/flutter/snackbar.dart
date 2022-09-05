@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -21,10 +22,20 @@ class SnackBarDemo extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                Icons.message,
-                size: 60,
-                color: Colors.blue[100],
+              Badge(
+                badgeContent: const Text("3"),
+                position: BadgePosition.topEnd(),
+                padding: EdgeInsets.all(8),
+                child: const Card(
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Icon(
+                      Icons.message,
+                      size: 40,
+                      //color: Colors.blue[100],
+                    ),
+                  ),
+                ),
               ),
               Text(
                 "Snackbar",

@@ -52,11 +52,11 @@ class _AnimationDemoState extends State<AnimationDemo> {
                     // whenever that target value changes, the widget animates the property from the old value to the new one.
                     // In this way, implicit animations trade control for convenience—they manage animation effects so that you don’t have to.
                     AnimatedContainer(
-                      duration: const Duration(milliseconds: 600),
-                      curve: Curves.fastOutSlowIn,
-                      width: width,
+                      duration: const Duration(milliseconds: 900),
+                      curve: Curves.elasticOut,
+                      width: width, // animate
                       height: 50,
-                      color: color,
+                      color: color, // animate
                     ),
                     ElevatedButton(
                         onPressed: () {
