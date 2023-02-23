@@ -4,7 +4,7 @@ import 'dart:math';
 import '../model/car.dart';
 
 void main(List<String> args) async {
-  //variableBasics();
+  // variableBasics();
   //operatorBasics();
   //listBasics();
   //listFunctionsBasics();
@@ -13,7 +13,7 @@ void main(List<String> args) async {
   //mapFunctionsBasics();
   //developerBasics();
   //nullSafetyBasics();
-  //functionBasics();
+  functionBasics();
 }
 
 void operatorBasics() {
@@ -51,16 +51,47 @@ void operatorBasics() {
     ..goodBye();
 }
 
-
-
-
-
 void printContentAndHash(arg) {
   print("$arg with hashcode: ${arg.hashCode}");
 }
 
 void variableBasics() {
+/* 
+Built-in types
+The Dart language has special support for the following:
+  Numbers (int, double)
+  Strings (String)
+  Booleans (bool)
+  Lists (List, also known as arrays)
+  Sets (Set)
+  Maps (Map)
+  Runes (Runes; often replaced by the characters API)
+  Symbols (Symbol)
+  The value null (Null)
+
+This support includes the ability to create objects using literals. 
+For example, 'this is a string' is a string literal, and true is a boolean literal.
+
+Because every variable in Dart refers to an object —an instance of a class— you can usually use constructors to initialize variables.
+
+Dart apps often target multiple platforms. For example, a Flutter app might target iOS, Android, and the web. 
+ie, depending on the platform, numeric types have different, hidden implementations and on the web, where Dart compiles to and interoperates with JavaScript.
+On the web, the underlying int type is like a subtype of double: it’s a double-precision value without a fractional part.
+
+
+
+ */
+
+  // Variables constructed from literals:
+  int meaningOfLife = 42;
+  double valueOfPi = 3.141592;
+  bool visible = true;
+
   // Creating a variable and initializing it.
+  // Integers are numbers without a decimal point.
+  var y = 1;
+  var hexVal = 0xDEADBEEF;
+
   var notInitialized;
   print("runtimeType: ${notInitialized.runtimeType}"); // Null
 
@@ -74,8 +105,11 @@ void variableBasics() {
   // The type of the name variable is inferred to be String.
   var name = 'Bob';
 
-  // Another option is to explicitly declare the type that would be inferred:
+  // A String is immutable and represents a sequence of characters.
   String Surname = 'Black';
+
+  var fullname = "$Surname, $name";
+  print(fullname);
 
   var multiLineStr = ''' This
   is a
@@ -84,6 +118,41 @@ void variableBasics() {
 
   print(multiLineStr);
 
+  // You can create a “raw” string by prefixing it with r:
+  var rawStr = r'In a raw string, not even \n gets special treatment.';
+  print(rawStr);
+
+  // Check for an empty string.
+  var fullName = '';
+  assert(fullName.isEmpty);
+
+  // StringBuffer provides a way to construct strings efficiently.
+  var moreShakespeare = StringBuffer();
+  moreShakespeare.write('And all the men and women ');
+  moreShakespeare.write('merely players; ...');
+
+  // String -> int
+  var one = int.parse('1');
+  assert(one == 1);
+
+  // int -> String
+  String oneAsString = 1.toString();
+  assert(oneAsString == '1');
+
+  // To create a compile-time constant, add "const"
+  // You can’t change the value of a const variable.
+  // This syntax can be used when the data type is not known:
+  // const variable_name
+  const aConstNum = 0;
+  // aConstNum = 1; // ERR Constant variables can't be assigned a value.
+  const aConstBool = true;
+  const aConstString = 'a constant string';
+
+  // If the value you have is computed at runtime (DateTime.now(), for example), you can’t use a const for it.
+  // final should be used over const if you don't know the value at compile time.
+
+  // Lists
+  //In Dart, arrays are List objects, so most people just call them lists.
   var a = ["x", "y"];
   printContentAndHash(a);
   var b = a;
@@ -108,6 +177,82 @@ void variableBasics() {
   // * Declaring a non-nullable variable that’s initialized after its declaration.
   // * Lazily initializing a variable.
   late String description;
+}
+
+void listBasics() {
+  /* 
+  The dart:core library provides basic collections, such as List, Map, and Set.
+  A List is an ordered collection of objects, with a length. Lists are sometimes called arrays. Use a List when you need to access objects by index.
+  In Dart, arrays are List objects, so most people just call them lists.
+  Dart list literals are denoted by a comma separated list of expressions or values, enclosed in square brackets [].
+  */
+
+  // Creates empty list.
+  var emptyList = [];
+  print(emptyList.runtimeType); // List<dynamic>
+
+  var nums = [1, 2, 3]; // type inference - Dart infers that list has type List<int>
+  var superheroes = ['Batman', 'Superman', 'Harry Potter']; //List<String> superheroes
+  var strings = <String>['A', 'B'];
+  var mixedList = ["one", 2, 3, "four", 5]; // List<Object>
+
+  // Lists use zero-based indexing: 0 is the index of the first value and list.length - 1 is the index of the last value.
+  // You can get a list’s length using the .length property and access a list’s values using the subscript operator []
+  assert(nums.length == 3);
+  assert(nums[1] == 2);
+
+  // Using generics, specific type only
+  final List<String> growableList = ['A', 'B'];
+  var secondList = <String>['X', 'X'];
+
+  // Return a list of given length. All elements of the created list share the same [fill] value.
+  var filledItems = List.filled(10, 0, growable: false);
+  //filledItems.add(1); // Cannot add to a fixed-length list
+  print(filledItems);
+
+  //Accessing list elements
+  print("items[0]: ${mixedList[0]}");
+  print("The element at index 0 is: ${mixedList.elementAt(0)}");
+  // print(items[10]); //RangeError
+
+  // Add (Replace) data
+  growableList.add('B'); // [A, B, B] // adding element to a final list!
+  growableList[0] = 'B'; // [B, B, B]
+  // increase the length of the list by one, shifting towards the end.
+  growableList.insert(1, 'M'); // [B, M, B, B]
+  growableList.addAll(secondList); // [B, M, B, B, X, X]
+  print(growableList);
+
+  //remove all objeects from the list, length of the list becomes zero.
+  mixedList.clear();
+  print(mixedList.length);
+
+  //Create a list and fill with a generator function for each index.
+  var squares = List.generate(
+    5,
+    (index) => index * index,
+  );
+  print(squares); // [0, 1, 4, 9, 16]
+
+  iterateList(growableList);
+
+  // immutable (const) list
+  const fruits = ["Apple", "Banana", "Strawberry"];
+  // fruits.add("Melon"); // Cannot add to an unmodifiable list
+  // fruits.remove("Banana"); // Cannot remove from an unmodifiable list
+  // fruits = ["Orange", "Apple"]; // Constant variable, cant be assigned
+
+// Spread operator (...)
+  var list1 = [30, 40, 50];
+  var list2 = [20, ...list1, 60];
+  print(list2);
+
+// collection if to create a list with three or four items in it:
+  bool promoActive = true;
+  var nav = ['Home', 'Furniture', 'Plants', if (promoActive) 'Outlet'];
+  print(nav);
+
+  printListInfo(nav);
 }
 
 void mapBasics() {
@@ -180,7 +325,8 @@ void mapFunctionsBasics() {
 
 Future<String> getNumber() {
   print("Inside getNumber method...");
-  return Future.delayed(const Duration(seconds: 5), () => "*** Beklediğiniz için teşekkürler.");
+  return Future.delayed(
+      const Duration(seconds: 5), () => "*** Beklediğiniz için teşekkürler.");
 }
 
 void printTitle(String arg) {
@@ -189,72 +335,6 @@ void printTitle(String arg) {
   print(line);
   print(arg);
   print(line);
-}
-
-void listBasics() {
-  // In Dart, arrays are List objects, so most people just call them lists.
-  // Dart list literals are denoted by a comma separated list of expressions or values, enclosed in square brackets [].
-
-  // Creates empty list.
-  var emptyList = [];
-  print(emptyList.runtimeType); // List<dynamic>
-
-  var nums = [1, 2, 3]; // type inference - Dart infers that list has type List<int>
-  var strings = <String>['A', 'B'];
-  var mixedList = ["one", 2, 3, "four", 5]; // List<Object>
-
-  // Using generics, specific type only
-  final List<String> growableList = ['A', 'B'];
-  var secondList = <String>['X', 'X'];
-
-  // Return a list of given length. All elements of the created list share the same [fill] value.
-  var filledItems = List.filled(10, 0, growable: false);
-  //filledItems.add(1); // Cannot add to a fixed-length list
-  print(filledItems);
-
-  //Accessing list elements
-  print("items[0]: ${mixedList[0]}");
-  print("The element at index 0 is: ${mixedList.elementAt(0)}");
-  // print(items[10]); //RangeError
-
-  // Add (Replace) data
-  growableList.add('B'); // [A, B, B]
-  growableList[0] = 'B'; // [B, B, B]
-  // increase the length of the list by one, shifting towards the end.
-  growableList.insert(1, 'M'); // [B, M, B, B]
-  growableList.addAll(secondList); // [B, M, B, B, X, X]
-  print(growableList);
-
-  //remove all objeects from the list, length of the list becomes zero.
-  mixedList.clear();
-  print(mixedList.length);
-
-  //Create a list and fill with a generator function for each index.
-  var squares = List.generate(
-    5,
-    (index) => index * index,
-  );
-  print(squares); // [0, 1, 4, 9, 16]
-
-  iterateList(growableList);
-
-  // immutable (const) list
-  const fruits = ["Apple", "Banana", "Strawberry"];
-  // fruits.add("Melon"); // Cannot add to an unmodifiable list
-  // fruits.remove("Banana"); // Cannot remove from an unmodifiable list
-  // fruits = ["Orange", "Apple"]; // Constant variable, cant be assigned
-
-// Spread operator (...)
-  var list1 = [30, 40, 50];
-  var list2 = [20, ...list1, 60];
-  print(list2);
-
-// collection if to create a list with three or four items in it:
-  bool promoActive = true;
-  var nav = ['Home', 'Furniture', 'Plants', if (promoActive) 'Outlet'];
-  print(nav);
-
-  printListInfo(nav);
 }
 
 void listFunctionsBasics() {
@@ -427,11 +507,43 @@ int? mayReturnNull() {
   return null;
 }
 
+// Arrow function
+// The => expr syntax is a shorthand for { return expr; }
+int square(int arg) => arg * arg;
+
 int cube(int arg) {
   return arg * arg * arg;
 }
 
 void functionBasics() {
+  /* 
+  
+  Functions are reusable components that perform a specific task. They divide a larger program into smaller parts.
+  A function is a mapping of zero or more input parameters to zero or more output parameters.
+  
+  The advantages of using functions are:
+    - Reducing duplication of code
+    - Improving clarity of the code
+    - Reuse of code
+    - Decomposing complex problems into simpler pieces
+    - Information hiding
+
+  Dart is a true object-oriented language, so even functions are objects and have a type, Function. 
+  This means that functions can be assigned to variables or passed as arguments to other functions.
+  */
+
+  // arrow function
+  print(square(5));
+
+  /*
+  Dart has two types of optional parameters: named and positional. 
+  A parameter wrapped by { } is a named optional parameter. We have to use the parameter name to assign a value which separated with column.
+  
+    * optional parameters are optional in that the caller isn't required to specify a value for the parameter when calling the function.
+    * Optional parameters can only be declared after any required parameters.
+    * Optional parameters can have a default value, which is used when a caller does not specify a value.
+   */
+
   //sayHello_positionalParam();      // ERR The analyzer produces 'not_enough_positional_arguments'
   //sayHello_positionalParam(null); // ERR The argument type 'Null' can't be assigned to the parameter type 'String'.
   sayHello_positionalParam("Masal"); // Hello, Masal!
@@ -439,22 +551,24 @@ void functionBasics() {
   //sayHello_positionalParamNullable();     // The analyzer produces 'not_enough_positional_arguments'
   sayHello_positionalParamNullable(null); // Hello null!
 
-  sayHello_namedParam(); // Hello null!
-  sayHello_namedParam(name: "Masal"); // Hello Masal!
+  sayHello_NamedParam(); // Hello null!
+  sayHello_NamedParam(name: null); // Hello null!
+  sayHello_NamedParam(name: "Masal"); // Hello Masal!
 
-  sayHello_NamedParamDef(); //Hello Human!
-  sayHello_NamedParamDef(name: "Masal"); //Hello Masal!
-
-  //sayHello_NamedParamRequired();            // ERR missing_required_argument
-  //sayHello_NamedParamRequired(name: null);  // ERR argument_type_not_assignable
+  // sayHello_NamedParamRequired();            // ERR The named parameter 'name' is required.
+  // sayHello_NamedParamRequired(name: null);  // ERR The argument type 'Null' can't be assigned to the parameter type 'String'.
   sayHello_NamedParamRequired(name: "Masal"); //Hello Masal!
+
+  sayHello_NamedParamDefault(); //Hello Human!
+  // sayHello_NamedParamDefault(name:null); // ERR The argument type 'Null' can't be assigned to the parameter type 'String'.
+  sayHello_NamedParamDefault(name: "Masal"); //Hello Masal!
 
   //sayHello_namedParamNullableRequired(); // ERR missing_required_argument
   sayHello_namedParamNullableRequired(name: null); // Hello null!
 
   sayHello_Combined("Me"); // Hello Human, this is Me.
-  sayHello_Combined("myName", yourName: null); // Hello null, this is Me.
   sayHello_Combined("Me", yourName: "Stranger"); // Hello Stranger, this is Me.
+  // sayHello_Combined("myName", yourName: null); // ERR String is not nullable
 
   // Assign an anonymous function to a variable
   var f = (int x) => x * x * x;
@@ -478,12 +592,31 @@ void sayHello_positionalParamNullable(String? name) {
 
 // Named parameters { }
 // Named parameters are optional(?) unless they’re explicitly marked as 'required'.
-void sayHello_namedParam({String? name}) {
+// sayHello_NamedParam(); // Hello null!
+// sayHello_NamedParam(name: null); // Hello null!
+// sayHello_NamedParam(name: "Masal"); // Hello Masal!
+void sayHello_NamedParam({String? name}) {
   print("Hello $name!");
 }
 
-// Named parameter required and it cannot be null.
+// If we have a named parameter that cannot be null:
+// a. Make it optional, but provide an explicit non-null default.
+// b. use required keyword.
+// sayHello_NamedParamRequired();            // ERR The named parameter 'name' is required.
+// sayHello_NamedParamRequired(name: null);  // ERR The argument type 'Null' can't be assigned to the parameter type 'String'.
+// sayHello_NamedParamRequired(name: "Masal"); //Hello Masal!
 void sayHello_NamedParamRequired({required String name}) {
+  print("Hello $name!");
+}
+
+// Default parameter values: arguman gecmesen de olur, varsayilan deger kullanilir.
+// If we have a named parameter that cannot be null:
+// a. Make it optional, but provide an explicit non-null default.
+// b. use required keyword.
+// sayHello_NamedParamDefault(); //Hello Human!
+// sayHello_NamedParamDefault(name:null); // ERR The argument type 'Null' can't be assigned to the parameter type 'String'.
+// sayHello_NamedParamDefault(name: "Masal"); //Hello Masal!
+void sayHello_NamedParamDefault({String name = "Human"}) {
   print("Hello $name!");
 }
 
@@ -492,14 +625,8 @@ void sayHello_namedParamNullableRequired({required String? name}) {
   print("Hello $name!");
 }
 
-// Default parameter values
-// If a parameter is optional but can’t be null, provide a default value.
-void sayHello_NamedParamDef({String name = "Human"}) {
-  print("Hello $name!");
-}
-
 // Combination of Positional and Named Parameters, Positional First
-void sayHello_Combined(String myName, {String? yourName = "Human"}) {
+void sayHello_Combined(String myName, {String yourName = "Human"}) {
   print("Hello $yourName, this is $myName");
 }
 
