@@ -1,10 +1,47 @@
-class Student {
-  final int ID;
-  final String name;
-  final String? major; // Declare instance variable major, initially null.
+// Prefer using lowerCamelCase for constant names
+enum Gender {
+  male,
+  female,
+  other,
+}
 
-  Student(this.ID, {required this.name, this.major});
+class Student extends Comparable {
+  String name;
+  int birthYear;
+  Gender gender;
+
+  Student({required this.name, required this.birthYear, required this.gender});
+
+  int get age => DateTime.now().year - birthYear;
 
   @override
-  String toString() => "{class: $Student, hashCode: $hashCode, ID: $ID, name: $name, major: $major}";
+  String toString() =>
+      '{"name": "$name", "birthYear": "$birthYear", "gender": "$gender"}';
+
+  // sort by age (asc), then name (desc)
+  @override
+  int compareTo(other) {
+    int ageComp = age.compareTo(other.age);
+    if (ageComp == 0) {
+      return -name.compareTo(other.name); // '-' for descending
+    }
+    return ageComp;
+  }
+}
+
+class Person {
+  final String name;
+
+  Person(this.name);
+
+  void sayHi() {
+    print("Hi, this is this $name");
+  }
+
+  void goodBye() {
+    print("Got to go now. See you later!");
+  }
+
+  @override
+  String toString() => '{"name": "$name"}';
 }
