@@ -1,23 +1,33 @@
 import 'dart:developer' as dev;
 import 'dart:math';
+import 'dart:io';
 
 import '../model/car.dart';
 
+/*
+enable the assert statement while executing a dart file using command prompt:
+$ dart --enable-asserts basics.dart
+
+ */
 void main(List<String> args) async {
   // variableBasics();
-  //operatorBasics();
-  //listBasics();
-  //listFunctionsBasics();
-  //comparableBasics();
-  //mapBasics();
-  //mapFunctionsBasics();
-  //developerBasics();
-  //nullSafetyBasics();
-  functionBasics();
+  // conditionalBasics();
+  nullSafetyBasics();
+  // operatorBasics();
+  // listBasics();
+  // listFunctionsBasics();
+  // comparableBasics();
+  // setBasics();
+  // mapBasics();
+  // mapFunctionsBasics();
+  // developerBasics();
+
+  // functionBasics();
 }
 
 void operatorBasics() {
   // Post Increment and Pre Decrement
+  // The postfix operator returns a copy of the value before it was incremented!
   int x = 10; // 10  .  .
   int y = x++; // 11 10  .
   int z = --y; // 11  9  9
@@ -108,6 +118,7 @@ On the web, the underlying int type is like a subtype of double: it’s a double
   // A String is immutable and represents a sequence of characters.
   String Surname = 'Black';
 
+  // Use the '$' character to reference a variable
   var fullname = "$Surname, $name";
   print(fullname);
 
@@ -141,15 +152,17 @@ On the web, the underlying int type is like a subtype of double: it’s a double
 
   // To create a compile-time constant, add "const"
   // You can’t change the value of a const variable.
-  // This syntax can be used when the data type is not known:
-  // const variable_name
-  const aConstNum = 0;
-  // aConstNum = 1; // ERR Constant variables can't be assigned a value.
+  // This syntax can be used when the data type is not known: const variable_name
+  const daysInYear = 365;
+  // daysInYear = 1; // ERR Constant variables can't be assigned a value.
   const aConstBool = true;
   const aConstString = 'a constant string';
 
-  // If the value you have is computed at runtime (DateTime.now(), for example), you can’t use a const for it.
-  // final should be used over const if you don't know the value at compile time.
+  // The final keyword is used in situations where a value is derived at runtime (i.e. when the application is active).
+  // Again the value assigned is immutable, however unlike a const value it cannot be known at compile time.
+  // i.e DateTime.now(), you can’t use a const for it.
+  final today = DateTime.now();
+  print('Today is day ${today.weekday}');
 
   // Lists
   //In Dart, arrays are List objects, so most people just call them lists.
@@ -179,18 +192,102 @@ On the web, the underlying int type is like a subtype of double: it’s a double
   late String description;
 }
 
+String whySoSerious(int resp) {
+  String status = "NA";
+  if (resp < 0) {
+    status = "why so negative?";
+  } else if (resp == 0) {
+    status = "zero? really?";
+  } else {
+    status = "positive vibes";
+  }
+
+  return status;
+}
+
+void conditionalBasics() {
+  assert(whySoSerious(-1) == "why so negative?");
+  assert(whySoSerious(0) == "zero? really?");
+  assert(whySoSerious(1) == "positive vibes");
+}
+
 void listBasics() {
   /* 
   The dart:core library provides basic collections, such as List, Map, and Set.
+
+  List<E> class represents an indexable collection of objects with a length.
+
   A List is an ordered collection of objects, with a length. Lists are sometimes called arrays. Use a List when you need to access objects by index.
-  In Dart, arrays are List objects, so most people just call them lists.
   Dart list literals are denoted by a comma separated list of expressions or values, enclosed in square brackets [].
+
+  The default growable list, as created by [], keeps an internal buffer, and grows that buffer when necessary. 
+  This guarantees that a sequence of add operations will each execute in amortized constant time.
+
+    var nums = [1, 2, 3];
+    
+    // List.filled(int length, E fill, {bool growable = false})
+    var fixedLengthList = List<int>.filled(5, 0);
+
+- There are kinds of List: 
+    - fixed-length list (list’s length cannot be changed) 
+    - growable list (size can be changed to accommodate new items or remove items)
+
+- Dart List is an ordered collection which maintains the insertion order of the items.
+- Dart List allows duplicates and null values.
+
   */
 
-  // Creates empty list.
-  var emptyList = [];
-  print(emptyList.runtimeType); // List<dynamic>
+  // create a List using List() constructor or literal syntax.
+  var myList = []; // empty growable list.
+  printListInfo(myList); // length = 0, isEmpty = true
 
+  // Add a value to the end of the list, extending the length by one.
+  myList.add(1); // [1]
+  printListInfo(myList); // length = 1, isEmpty = false
+
+  myList.add(2); // [1, 2]
+  myList.add(1); // [1, 2, 1]
+  myList.add(3); // [1, 2, 1, 3]
+
+  // Find elements / Checking the existence in List
+  int q = 1;
+  // Whether the collection contains an element:
+  if (myList.contains(q)) {
+    print("Element found: ${q} ");
+  }
+
+  // The "first" index of element in this list. Returns -1 if element is not found.
+  print("The first index of ${q} is: ${myList.indexOf(q)}"); // 0
+
+  // The "last" index of element in this list. Returns -1 if element is not found.
+  print("The last index of ${q} is: ${myList.lastIndexOf(q)}"); // 2
+
+  // Remove the first occurrence of value from this list.
+  print("Removing first occurrence of 1:");
+  myList.remove(1); // [2, 1, 3]
+  print(myList);
+
+  // Removes and returns the object at position index from this list. The index must be in the range 0 ≤ index < length.
+  var removedElement = myList.removeAt(0); // [1, 3]
+  print(myList);
+
+  // Removes and returns the last object in this list. The list must be growable and non-empty.
+  var lastElement = myList.removeLast(); // [1]
+  print(myList);
+
+  // We can create growable list by not specify the length of the List:
+  // var myList = List<int>(); // var myList = [];  ERR - default List constructor isnt available when null safety is enabled.
+
+  // Create fixed-length list
+  // var myList = List(3);          // ERR - default List constructor isnt available when null safety is enabled. Use a list literal, 'List.filled' or 'List.generate'.
+  // var myList = List<String>(3);  // ERR - default List constructor isnt available when null safety is enabled.
+
+  // Create fixed-length list
+  // List.filled(int length, E fill, {bool growable = false})
+  var fixedLengthList = List<int>.filled(5, 0);
+  // fixedLengthList.add(10); // ERR Unsupported operation: Cannot add to a fixed-length list
+
+  // initialize List with values
   var nums = [1, 2, 3]; // type inference - Dart infers that list has type List<int>
   var superheroes = ['Batman', 'Superman', 'Harry Potter']; //List<String> superheroes
   var strings = <String>['A', 'B'];
@@ -198,29 +295,24 @@ void listBasics() {
 
   // Lists use zero-based indexing: 0 is the index of the first value and list.length - 1 is the index of the last value.
   // You can get a list’s length using the .length property and access a list’s values using the subscript operator []
-  assert(nums.length == 3);
   assert(nums[1] == 2);
 
   // Using generics, specific type only
   final List<String> growableList = ['A', 'B'];
   var secondList = <String>['X', 'X'];
 
-  // Return a list of given length. All elements of the created list share the same [fill] value.
-  var filledItems = List.filled(10, 0, growable: false);
-  //filledItems.add(1); // Cannot add to a fixed-length list
-  print(filledItems);
-
-  //Accessing list elements
-  print("items[0]: ${mixedList[0]}");
+  //Access the item at specified index in a List using elementAt() method, or operator [].
+  print("mixedList[0]: ${mixedList[0]}");
   print("The element at index 0 is: ${mixedList.elementAt(0)}");
   // print(items[10]); //RangeError
+  // print("The element at index 10 is: ${mixedList.elementAt(10)}"); // RangeError
 
-  // Add (Replace) data
-  growableList.add('B'); // [A, B, B] // adding element to a final list!
-  growableList[0] = 'B'; // [B, B, B]
+  // Modify the item at specified index in a List using operator [].
+  growableList[0] = 'B'; // [B, B]
+
   // increase the length of the list by one, shifting towards the end.
-  growableList.insert(1, 'M'); // [B, M, B, B]
-  growableList.addAll(secondList); // [B, M, B, B, X, X]
+  growableList.insert(1, 'M'); // [B, M, B]
+  growableList.addAll(secondList); // [B, M, B, X, X]
   print(growableList);
 
   //remove all objeects from the list, length of the list becomes zero.
@@ -236,16 +328,70 @@ void listBasics() {
 
   iterateList(growableList);
 
+  // User defined objects List
+  var students = <Student>[];
+  students.add(Student(name: "Ron", birthYear: 1980, gender: Gender.male));
+  students.add(Student(name: "Fred", birthYear: 1978, gender: Gender.male));
+  students.add(Student(name: "George", birthYear: 1978, gender: Gender.male));
+  students.add(Student(name: "Ginny", birthYear: 1981, gender: Gender.female));
+  print(students);
+
+  // Combine Lists
+  // v1: operator+
+  var list01 = [1, 2, 3];
+  var list02 = [4, 5];
+  var list03 = [6, 7, 8];
+
+  var combinedList01 = list01 + list02 + list03; // [1, 2, 3, 4, 5, 6, 7, 8]
+  print(combinedList01);
+
+  // v2: Spread operator (...)
+  var combinedList02 = [...list01, ...list02, ...list03]; // [1, 2, 3, 4, 5, 6, 7, 8]
+  print(combinedList02);
+
+  var list04 = [-11, ...list01, 11]; // [-11, 1, 2, 3, 11]
+  print(list04);
+
+  //v3: // from() and addAll() method
+  var combinedList03 = List.from(list01)
+    ..addAll(list02)
+    ..addAll(list03); // [1, 2, 3, 4, 5, 6, 7, 8]
+  print(combinedList03);
+
+  // Filter elements from a List
+  var grades = [60, 68, 47, 88, 62, 44, 92];
+  print("Grades: $grades");
+
+  var passed = grades.where((e) => e > 60).toList(); //[68, 88, 62, 92]
+  print("Passed (Score > 60): $passed");
+  var firstScoreWhoPassed = grades.firstWhere((e) => e > 60); // 68
+  print("$firstScoreWhoPassed");
+  var lastScoreWhoPassed = grades.lastWhere((e) => e > 60); // 92
+  print("$lastScoreWhoPassed");
+
+  // Sort a List
+  // Sorts this list according to the order specified by the compare function. The default List implementations use Comparable.compare if compare is omitted.
+  grades.sort();
+  print("Grades sorted: $grades");
+
+  // int compareTo(num other): returns a negative number if this is less than other, zero if they are equal, and a positive number if this is greater than other.
+  // Thus, a Comparator may compare objects as equal (return zero), even if they are distinct objects.
+  // The sort function is not guaranteed to be stable, so distinct objects that compare as equal may occur in any order in the result.
+  var numbers = ['one', 'two', 'three', 'four'];
+  numbers.sort(); // [four, one, three, two]
+  print("Default sorted: $numbers");
+  numbers.sort((a, b) => a.length.compareTo(b.length));
+  print("Sort using a comparator: $numbers");
+  // [one, two, four, three] OR [two, one, four, three]
+
+  students.sort(); // class Student extends Comparable and overrides compareTo()
+  print("Students sorted: $students");
+
   // immutable (const) list
   const fruits = ["Apple", "Banana", "Strawberry"];
   // fruits.add("Melon"); // Cannot add to an unmodifiable list
   // fruits.remove("Banana"); // Cannot remove from an unmodifiable list
   // fruits = ["Orange", "Apple"]; // Constant variable, cant be assigned
-
-// Spread operator (...)
-  var list1 = [30, 40, 50];
-  var list2 = [20, ...list1, 60];
-  print(list2);
 
 // collection if to create a list with three or four items in it:
   bool promoActive = true;
@@ -255,21 +401,112 @@ void listBasics() {
   printListInfo(nav);
 }
 
+void printListInfo(List aList) {
+  print("=== List info ===");
+  print(aList);
+  print("runtimeType: ${aList.runtimeType}");
+  print("Number of elements in the list: ${aList.length}");
+  print("isEmpty: ${aList.isEmpty}");
+  if (!aList.isEmpty) {
+    // aList.length > 0
+    print("First element: ${aList.first} || ${aList[0]}");
+    print("Last element: ${aList.last} || ${aList[aList.length - 1]}");
+  }
+
+  // print("Reversed: ${aList.reversed}");
+}
+
+void setBasics() {
+  /*
+  
+  A collection of objects in which each object can occur only once.
+  That is, for each object of the element type, the object is either considered to be in the set, or to not be in the set.
+
+  The default Set implementation, LinkedHashSet, considers objects indistinguishable if they are equal with regard to Object.== and Object.hashCode
+
+  */
+  printTitle("Set Basics");
+
+  // create an empty Set of integers using literal syntax
+  Set<int> ratings = {};
+  // Or you can move the type to the right-hand side:
+  var players = <int>{};
+
+  // create and initialize a Set of integers with values using literal syntax
+  var ids = {1, 2, 3};
+  print(ids);
+  print('Number of elements: ${ids.length}');
+
+  // Accessing an element by Index
+  // Unlike a list, you cannot access an element at an index using square brackets [].
+  // Instead, you can use the elementAt() method
+  // print("The first element: ${ids[0]}"); // ERR The operator '[]' isn't defined.
+  print("The first element: ${ids.elementAt(0)}");
+  // we can use the first and last property to access the first and last elements respectively.
+  print("The last element: ${ids.last}");
+
+  // Adding element(s) to a set:
+  ids.add(4); // {1, 2, 3, 4}
+  ids.add(1); // element that already exists in a set. {1, 2, 3, 4}
+  ids.addAll([1, 3, 5]); // Adds all elements to this set. {1, 2, 3, 4, 5}
+  print(ids);
+
+  // Remove value from the set:
+  // Returns true if value was in the set, and false if not, has no effect if value was not in the set.
+  bool isRemoved = ids.remove(3); // {1, 2, 4, 5}
+  if (isRemoved) print("Value is removed from set: $ids");
+
+  // Find elements / Checking the existence in List
+  int q = 3;
+  if (ids.contains(q)) {
+    print("Element found in the set: ${q} ");
+  }
+
+  // the union of two sets
+  var a = {1, 3, 5};
+  var b = {3, 5, 7};
+  var c = a.union(b); // {1, 3, 5, 7}
+
+  // Iterating over elements of a set
+  final buffer = StringBuffer();
+  buffer.write("Set{");
+  int i = 0;
+  for (var e in c) {
+    if (i++ != 0) buffer.write(", ");
+    buffer.write(e);
+  }
+  buffer.write("}");
+  print(buffer);
+}
+
 void mapBasics() {
-  // A Map is composed of key : value pairs inside curly braces { } (like JSON representation)
-  printTitle("MAP");
+  /*
+  Map<K, V> class 
+  A collection of key/value pairs, from which you retrieve a value using its associated key.
+
+  There is a finite number of keys in the map, and each key has exactly one value associated with it.
+
+  A Map is composed of key : value pairs inside curly braces { }  - like JSON representation of an object!
+
+  MapEntry<K, V> class
+  A key/value pair representing an entry in a Map.
+   */
+
+  printTitle("Map Basics");
 
   //creating an empty map, option 01
-  var map01 = {};
+  var map01 = {}; // Map<dynamic, dynamic> map01
   print(map01.runtimeType); // _InternalLinkedHashMap<dynamic, dynamic>
+  if (map01.isEmpty) print("Empty map: $map01");
 
   //creating an empty map, option 02
-  var map02 = <String, int>{};
+  var map02 = <String, int>{}; //Map<String, int> map02
   print(map02.runtimeType); // _InternalLinkedHashMap<String, int>
 
   //creating an empty map, option 03
   Map<String, int> map03 = {};
 
+  // Initialize a Map with values:
   var employee = <String, dynamic>{
     "id": 12345,
     "name": "Foo",
@@ -277,6 +514,7 @@ void mapBasics() {
   };
 
   print("employee : $employee");
+  print("keys: ${employee.keys}");
 
   var myCar = {
     "make": "Volkswagen",
@@ -286,7 +524,7 @@ void mapBasics() {
   print("myCar : $myCar");
 
   // Accessing elements - Get the value for the key (key is like the index of list)
-  print(myCar["year"]);
+  print('myCar["year"]: ${myCar["year"]}');
 
   // Create or Set a new key:value pair
   myCar["model"] = "T-ROC";
@@ -300,27 +538,25 @@ void mapBasics() {
   // Returns the value associated with key before it was removed. Returns null if key was not in the map.
   var mphValue = myCar.remove("mph");
   print(mphValue ?? "The key was not found in the map.");
-}
 
-void mapFunctionsBasics() {
-  var employee = <String, dynamic>{
-    "id": 12345,
-    "name": "Foo",
-    "post": "Software Engineer",
-  };
-
-  print(employee);
-  print("keys: ${employee.keys}");
-
-  // for in loop over keys
+  // Iterate over Map
+  // a. loop over keys
+  print("Iterate over keys:");
   for (var key in employee.keys) {
     print("$key : ${employee[key]}");
   }
 
-  // for in loop over MapEntry
+  // b. loop over MapEntry<K, V> class represents a key/value pair representing an entry in a Map.
+  print("Iterate over entries:");
   for (var entry in employee.entries) {
     print("${entry.key} : ${entry.value}");
   }
+
+  // c. forEach() applies 'action' to each key/value pair of the map.
+  print("Iterate using forEach() method:");
+  employee.forEach((key, value) {
+    print("key: $key, value: $value");
+  });
 }
 
 Future<String> getNumber() {
@@ -443,15 +679,6 @@ void iterateList(List arg) {
   }
 }
 
-void printListInfo(List arg) {
-  print(arg);
-  print("Reversed: ${arg.reversed}");
-  print("Length: ${arg.length}");
-  print("First element: ${arg.first} || ${arg[0]}");
-  print("Last element: ${arg.last} || ${arg[arg.length - 1]}");
-  print("isEmpty: ${arg.isEmpty}");
-}
-
 void developerBasics() {
   dev.log("Log message");
 }
@@ -473,43 +700,94 @@ String? mayReturnString() {
 }
 
 void nullSafetyBasics() {
-  String? mayBeNull;
+  /*
+   As of Dart v2.0 null type safety is now the default, meaning it is no longer possible to assign null to all data types.
 
-  print(mayReturnString());
+   In type theory lingo, the Null type was treated as a subtype of all types. 
+   Allowing null to flow into an expression of some other type means any of those operations can fail. 
+   This is really the crux of null reference errors—every failure comes from trying to look up a method or property on null that it doesn’t have.
+   
+   Null safety eliminates that problem at the root by changing the type hierarchy. 
+
+   When you opt into null safety, types are non-nullable by default, meaning that variables can’t contain null unless you say they can. 
+   For example, if you have a variable of type String, it will always contain a string. 
+   Non-nullable variables need to be assigned a value before it’s used.
+
+      int x;
+      print('x is $x.'); // Error: Non-nullable variable 'x' must be assigned before it can be used.
+
+   In Dart, Null is also an object which means it can be used beyond the simple `no value` use case. 
+   To assign a null to a data type, it is expected that the ? type is appended to the data type to explicitly indicate a value can also be null.
+
+      int? y;
+      print(“y is $y”); // “y is null"
+   */
+
+  // When you opt into null safety, types are non-nullable by default
+  // String str = null; // ERR A value of type 'Null' can't be assigned to a variable of 'String'.
+
+  printTitle("Null Safety Basics");
+
+  String? mayBeNull;
+  print("mayBeNull is $mayBeNull"); // “mayBeNull is null"
 
   // using the null-aware operator (?.) on a null value, evaluates to null.
   int? len = mayBeNull?.length;
-  print("The length of the string is: $len");
-
-  print(mayBeNull?.toString()); // null
+  print("mayBeNull?.length: $len");
+  print("mayBeNull?.toString(): ${mayBeNull?.toString()}"); // null
 
   // When you use a null-aware operator in a method chain, if the receiver evaluates to null, then the entire rest of the method chain is short-circuited and skipped.
-  print("isEven?: ${mayBeNull?.length.isEven.toString()}");
+  print("mayBeNull?.length.isEven.toString(): ${mayBeNull?.length.isEven.toString()}");
 
   // Assignment using ?? operator
   // Returns the left-hand side if it is not null, and the right-hand side (default) otherwise.
   var code = mayBeNull ?? "DefaultCode";
-  print("null ?? 'DefaultCode' : $code"); // false
+  print("= null ?? 'DefaultCode' : $code"); // false
 
   var res = mayBeNull?.length ?? false;
   print("mayBeNull?.length ?? false: $res"); // false
 
-  // Fallback assignment operator (??=)
-  int? x;
-  x = mayReturnNull();
+  print(mayReturnString());
+
+  // Fallback assignment operator: ??= (If null, assign the value)
+  int? x = returnNull();
   x ??= 0;
 
   print("x: $x");
+
+  // A List of Strings, where the list itself can be null:
+  List<String>? nums = ["Foo", "Bar"];
+  print(nums.length);
+  nums = null; // OK, the lisst itself can be null.
+
+  // A List of Strings, whose members can be null:
+  List<String?> members = ["Foo"];
+  members.add(null); // OK, members can be null
+  print(members);
+
+  processNullableList(null);
 }
 
-int? mayReturnNull() {
-  // return 100;
+int? returnNull() {
   return null;
+}
+
+void processNullableList(List<String>? list) {
+  // print(list.length); // ERR length can't be unconditionally accessed because the receiver can be 'null'.
+
+  // using the null-aware operator (?.) on a null value, evaluates to null.
+  print("nullable argument length: ${list?.length}"); // nullable argument length: null
 }
 
 // Arrow function
 // The => expr syntax is a shorthand for { return expr; }
 int square(int arg) => arg * arg;
+
+// one-liner for boolean return type
+bool isEven(int x) => x % 2 == 0;
+
+// return a conditional "expression"
+String passOrFail(double score) => score >= 70.0 ? "Pass" : "Fail";
 
 int cube(int arg) {
   return arg * arg * arg;
@@ -532,8 +810,12 @@ void functionBasics() {
   This means that functions can be assigned to variables or passed as arguments to other functions.
   */
 
-  // arrow function
-  print(square(5));
+  // The syntax of using the assert statement: assert(condition);
+  assert(square(5) == 25);
+  assert(passOrFail(80.0) == "Pass");
+  assert(passOrFail(1.0) == "Fail");
+  assert(isEven(10) == true);
+  assert(!isEven(1));
 
   /*
   Dart has two types of optional parameters: named and positional. 
@@ -630,6 +912,37 @@ void sayHello_Combined(String myName, {String yourName = "Human"}) {
   print("Hello $yourName, this is $myName");
 }
 
+// Prefer using lowerCamelCase for constant names
+enum Gender {
+  male,
+  female,
+  other,
+}
+
+class Student extends Comparable {
+  String name;
+  int birthYear;
+  Gender gender;
+
+  Student({required this.name, required this.birthYear, required this.gender});
+
+  int get age => DateTime.now().year - birthYear;
+
+  @override
+  String toString() =>
+      '{"name": "$name", "birthYear": "$birthYear", "gender": "$gender"}';
+
+  // sort by age (asc), then name (desc)
+  @override
+  int compareTo(other) {
+    int ageComp = age.compareTo(other.age);
+    if (ageComp == 0) {
+      return -name.compareTo(other.name); // '-' for descending
+    }
+    return ageComp;
+  }
+}
+
 class Person {
   final String name;
 
@@ -644,5 +957,5 @@ class Person {
   }
 
   @override
-  String toString() => "${super.toString()}, name: $name";
+  String toString() => '{"name": "$name"}';
 }
