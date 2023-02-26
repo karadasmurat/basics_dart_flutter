@@ -30,12 +30,16 @@ class Student extends Comparable {
 }
 
 class Person {
-  final String name;
+  String lastName; // non-nullable, lets make it positional
+  String firstName; // non-nullable, lets make required named parameter.
+  String? middleName; // nullable, lets make it optional
+  int birthYear; // non-nullable, lets make it optional with a default value
 
-  Person(this.name);
+  Person(this.lastName,
+      {required this.firstName, this.middleName, this.birthYear = 1900});
 
   void sayHi() {
-    print("Hi, this is this $name");
+    print("Hi, this is this $lastName, $firstName");
   }
 
   void goodBye() {
@@ -43,5 +47,29 @@ class Person {
   }
 
   @override
-  String toString() => '{"name": "$name"}';
+  String toString() =>
+      '{"fn": "$firstName", "m": "$middleName", "ln": "$lastName", "by": $birthYear}';
+}
+
+class Exam {
+  final int score;
+  int? calculatedScore;
+  bool? isTop;
+
+  // A. Default constructor, initializing instance variable with a default value.
+  Exam() : score = 0 {
+    print("Exam() - default constructor called.");
+  }
+
+  // B. Named constructor, named parameter with a default value.
+  // In other languages, it is possible to overload your constructor. In Dart, this is not possible, but there is a way around it:
+  // Use a named constructor to implement multiple constructors for a class or to provide extra clarity:
+  // Classname.constructorname
+  Exam.defaultScore({this.score = -1})
+      : calculatedScore = 2 * score,
+        isTop = score > 90 ? true : false;
+
+  @override
+  String toString() =>
+      "{score: $score, calculatedScore: $calculatedScore, isTop: $isTop, hashCode: $hashCode}";
 }

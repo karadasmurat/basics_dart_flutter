@@ -1,42 +1,38 @@
-import 'dart:math';
+/*
+A constructor is utilized to guarantee instances are made in a reasonable state.
+
+1.a)  Default Constructor
+      Even if you don’t declare a constructor, a default constructor is provided for you. 
+      The default constructor has no arguments ( )  and invokes the no-argument constructor in the superclass.
+          ClassName();
+
+1.b)  Parameterised Constructor
+      A constructor with the same ClassName:
+          ClassName(this.variable1, this.variable2); //Dart provides syntactic sugar to initialize variables. 
+
+1.c)  Named constructors
+      In other languages, it is possible to overload your constructor. In Dart, this is not possible, but there is a way around it:
+      Use a named constructor to implement multiple constructors for a class or to provide extra clarity:
+          Classname.constructorname( ... )
+
+Private Named Constructors:
+    class Robot {
+
+      Robot._();
+    }
+
+
+Initializer list (:) 
+You can initialize instance variables before the constructor body runs. 
+Comma separated list of expressions that can access constructor parameters and can assign to instance fields, even final instance fields. 
+This is handy to initialize final fields with calculated values.
+The initializer list is also used to call other constructors like : super('Foo')
+
+ */
 
 import 'basics.dart';
-
-/// A simple constructor demo with syntactic sugar and initializer list.
-class Point {
-  int x, y;
-
-  // When initializing fields is the single goal of the constructor, body { } is optional.
-
-  // Constructor
-  // Syntactic sugar to initialize variables. (Positional Arguments)
-  Point(this.x, this.y);
-
-  // Constructor
-  // Initializer list to initialize variables. (Positional Arguments)
-  Point.init(int a, int b)
-      : x = a,
-        y = b;
-
-  // Constructor Body to initialize variables.
-  // If instance fields are non nullable or final, this would give an ERR.
-  // syntactic sugar or initializer list executes before the body, thus initialize fields, preventing this initialization ERR. late variables also OK.
-  // Point.traditional(int a, int b) {
-  //  x = a;
-  //  y = b;
-  // }
-
-  static double distanceBetween(Point a, Point b) {
-    var dx = a.x - b.x;
-    var dy = a.y - b.y;
-    return sqrt(dx * dx + dy * dy);
-  }
-
-  @override
-  String toString() {
-    return "${super.toString()}, x: $x, y: $y,  hashCode: $hashCode";
-  }
-}
+import '../model/student.dart';
+import '../model/shape.dart';
 
 /// A simple const constructor demo
 /// Only classes with a const constructor can be instantiated using const keyword.
@@ -61,13 +57,13 @@ class Phone {
       "{hashcode: $hashCode, make: $make ,isUsed: $isUsed ,numOfSIM: $numOfSIM }";
 }
 
-class SimpleParent {
+class ParentWithDefaultConstructor {
   SimpleParent() {
     print("Default Constructor of parent called.");
   }
 }
 
-class SimpleChild extends SimpleParent {
+class SimpleChild extends ParentWithDefaultConstructor {
   // Compiler implicitly invokes the parent class’s default constructor (no-arg constructor).
   // If no parameters are defined in a superclass constructor, you can bypass the call to super() in your subclass.
   SimpleChild() {
@@ -90,27 +86,17 @@ class Child extends ParentWithNoDefaultConstructor {
   }
 }
 
-class Exam {
-  final int score;
-  int? calculatedScore;
-  bool? isTop;
-
-  // A. Default constructor, initializing instance variable with a default value.
-  Exam() : score = 0 {
-    print("Exam() - default constructor called.");
-  }
-
-  // B. Named constructor, named parameter with a default value.
-  Exam.defaultScore({this.score = -1})
-      : calculatedScore = 2 * score,
-        isTop = score > 90 ? true : false;
-
-  @override
-  String toString() =>
-      "{score: $score, calculatedScore: $calculatedScore, isTop: $isTop, hashCode: $hashCode}";
-}
-
 void main(List<String> args) {
+  //Person p = Person(); // ERR positional argument(s) expected.
+
+  Person p01 = Person("Potter", firstName: "Harry");
+  Person p02 = Person("Weasley", firstName: "Ron", middleName: "Bilius");
+  Person p03 = Person("Granger", firstName: "Hermione", birthYear: 1979);
+
+  print(p01); // {"fn": "Harry", "m": "null", "ln": "Potter", "by": 1900}
+  print(p02); // {"fn": "Ron", "m": "Bilius", "ln": "Weasley", "by": 1900}
+  print(p03); // {"fn": "Hermione", "m": "null", "ln": "Granger", "by": 1979}
+
   var exam01 = Exam();
   print(exam01); // {score: 0, calculatedScore: null, isTop: null}
 
@@ -125,17 +111,6 @@ void main(List<String> args) {
   var child = new SimpleChild();
 
   var child02 = new Child();
-
-  var point01 = Point(10, 20);
-  print(point01);
-
-  var point02 = Point.init(10, 20);
-  print(point02);
-
-  var a = Point(2, 2);
-  var b = Point(4, 4);
-  // Static methods (class methods) don’t operate on an instance
-  var distance = Point.distanceBetween(a, b);
 
   printTitle("const Constructors");
 

@@ -1,10 +1,24 @@
+/*
+
+Refer to Point class in shape.dart for 
+  - named constructor
+  - redirecting constructor
+  - override operator (==) of 'Object' class
+  - override hashCode property of 'Object' class
+
+Refer to Person class in student.dart for 
+  - constructor with positional parameter, required named parameter and named parameter with a default value.
+ */
+
 import 'package:basics_dart/dart/basics.dart';
 
 import '../model/box.dart';
+import '../model/shape.dart';
 import '../model/student.dart';
 import '../model/animal.dart';
 
 void main(List<String> args) {
+  // Access the enumerated values like any other static variable: Gender.male
   var x = Student(name: "Mike", birthYear: 1990, gender: Gender.male);
   var y = x;
 
@@ -22,10 +36,42 @@ void main(List<String> args) {
   print(box02.count); // 2
   print(box01.count); // 2
 
-  polymorphismBasics();
+  //constructorBasics();
+  operatorOverloading();
+  // polymorphismBasics();
+}
+
+void constructorBasics() {
+  // var point = Point(); // ERR positional argument(s) are expected.
+
+  var point01 = Point(10, 20);
+  print(point01);
+
+  var point02 = Point.alongXAxis(3); // A redirecting constructor
+  print(point02);
+
+  var point03 = Point.fromJson({"x": 11, "y": 22}); // named constructor
+  print(point03);
+}
+
+void operatorOverloading() {
+  var point01 = Point(10, 0);
+  var point02 = Point.alongXAxis(10);
+  var p3 = "not a point";
+
+  if (point01 == point02) {
+    print(point01);
+    print(point02);
+    print("${point01.hashCode} and ${point01.hashCode} points are the same.");
+
+    assert(p3 != point01);
+  }
 }
 
 void polymorphismBasics() {
+  /*
+   Superclass <varname> = Subclass() 
+  */
   printTitle("Polymorphism Basics");
 
   //instance of a concrete implementation of an interface
@@ -34,6 +80,7 @@ void polymorphismBasics() {
 
   Animal animal = Monkey("Animee", onLegs);
   animal.eat();
+  // animal.aMonkeyMethod(); // ERR - method aMonkeyMethod() is not defined for the type 'Animal'
   // animal.walk(); // ERR - method walk() is not defined for the type 'Animal'
 
   Walkable walker = Monkey("Walkie", onLegs);
@@ -45,7 +92,7 @@ void polymorphismBasics() {
   babyMonkey.eat(); // banana
   babyMonkey.walk();
 
-  Animal dog = Dog("Karabas", "Kangal");
+  Animal dog = Dog("Karabas", Breed.bulldog);
   dog.eat(); // default - inherited from superclass
   dog.sleep(); // bones
   // dog.bark() // ERR The method 'bark' isn't defined for the type 'Animal'

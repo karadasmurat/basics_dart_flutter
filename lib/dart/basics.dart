@@ -55,7 +55,7 @@ void operatorBasics() {
   print(res);
 
   // Cascade Operator (..)
-  var mk = Person("Foo");
+  var mk = Person("Bar", firstName: "Foo");
   mk
     ..sayHi()
     ..goodBye();
