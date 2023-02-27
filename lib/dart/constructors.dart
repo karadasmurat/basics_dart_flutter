@@ -31,8 +31,8 @@ The initializer list is also used to call other constructors like : super('Foo')
  */
 
 import 'basics.dart';
+import '../model/person.dart';
 import '../model/student.dart';
-import '../model/shape.dart';
 
 /// A simple const constructor demo
 /// Only classes with a const constructor can be instantiated using const keyword.

@@ -8,11 +8,18 @@ Refer to Point class in shape.dart for
 
 Refer to Person class in student.dart for 
   - constructor with positional parameter, required named parameter and named parameter with a default value.
+
+Refer to utils.dart for
+  - Extension methods vs static utility methods
+
+
  */
 
 import 'package:basics_dart/dart/basics.dart';
+import 'package:basics_dart/model/utils.dart';
 
 import '../model/box.dart';
+import '../model/generics.dart';
 import '../model/shape.dart';
 import '../model/student.dart';
 import '../model/animal.dart';
@@ -36,9 +43,11 @@ void main(List<String> args) {
   print(box02.count); // 2
   print(box01.count); // 2
 
-  //constructorBasics();
-  operatorOverloading();
+  // constructorBasics();
+  // operatorOverloading();
   // polymorphismBasics();
+  // extensionMethods();
+  generics();
 }
 
 void constructorBasics() {
@@ -96,4 +105,20 @@ void polymorphismBasics() {
   dog.eat(); // default - inherited from superclass
   dog.sleep(); // bones
   // dog.bark() // ERR The method 'bark' isn't defined for the type 'Animal'
+}
+
+void extensionMethods() {
+  String name = "Hagrid";
+
+  // With the extension method in place, you can now call it on any String object directly:
+  print("The first character of the name is: ${name.getFirstCharacter()}");
+
+  // Property extension: String get last
+  print("The last character of the name is: ${name.last}");
+}
+
+void generics() {
+  const pair = Pair<String, int>("MSL", 8);
+  print(pair);
+  print("First element: ${pair.key}");
 }

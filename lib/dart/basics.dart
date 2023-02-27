@@ -8,6 +8,9 @@ import '../model/car.dart';
 enable the assert statement while executing a dart file using command prompt:
 $ dart --enable-asserts basics.dart
 
+
+Dart is statically typed. The compiler knows the type of every expression at compile-time.
+
  */
 void main(List<String> args) async {
   // variableBasics();
@@ -25,48 +28,11 @@ void main(List<String> args) async {
   // functionBasics();
 }
 
-void operatorBasics() {
-  // Post Increment and Pre Decrement
-  // The postfix operator returns a copy of the value before it was incremented!
-  int x = 10; // 10  .  .
-  int y = x++; // 11 10  .
-  int z = --y; // 11  9  9
-
-  print("x: $x, y: $y, z: $z"); // x: 11, y: 9, z: 9
-
-  // Logical Operators - && || !
-  // Relational Operators
-  print(x > y && y == z); //true
-
-  // 00101: 5  (Bitwise Left Shift <<1): 01010: 10
-  // 10'luk sistemde 1 basamak sola kaydırınca sonuc 10 ile carpmak gibi, 2'lik sistemde 2 ile carp
-  var a = 5;
-  var b = 24;
-  var c = a << 1; // *2 = 10
-  var d = a << 2; // *4 = 20
-  var e = b >> 3; // /8 = 3
-  print("c: $c d: $d e: $e");
-
-  // Assignment using Conditional Operator (?:)
-  // variable = condition ? expression1 : expression2
-  int base = 100;
-  bool isDoubled = true;
-  var res = isDoubled ? 2 * base : base;
-  print(res);
-
-  // Cascade Operator (..)
-  var mk = Person("Bar", firstName: "Foo");
-  mk
-    ..sayHi()
-    ..goodBye();
-}
-
-void printContentAndHash(arg) {
-  print("$arg with hashcode: ${arg.hashCode}");
-}
-
 void variableBasics() {
 /* 
+
+Dart is statically typed. The compiler knows the type of every expression at compile-time.
+
 Built-in types
 The Dart language has special support for the following:
   Numbers (int, double)
@@ -190,6 +156,46 @@ On the web, the underlying int type is like a subtype of double: it’s a double
   // * Declaring a non-nullable variable that’s initialized after its declaration.
   // * Lazily initializing a variable.
   late String description;
+}
+
+void operatorBasics() {
+  // Post Increment and Pre Decrement
+  // The postfix operator returns a copy of the value before it was incremented!
+  int x = 10; // 10  .  .
+  int y = x++; // 11 10  .
+  int z = --y; // 11  9  9
+
+  print("x: $x, y: $y, z: $z"); // x: 11, y: 9, z: 9
+
+  // Logical Operators - && || !
+  // Relational Operators
+  print(x > y && y == z); //true
+
+  // 00101: 5  (Bitwise Left Shift <<1): 01010: 10
+  // 10'luk sistemde 1 basamak sola kaydırınca sonuc 10 ile carpmak gibi, 2'lik sistemde 2 ile carp
+  var a = 5;
+  var b = 24;
+  var c = a << 1; // *2 = 10
+  var d = a << 2; // *4 = 20
+  var e = b >> 3; // /8 = 3
+  print("c: $c d: $d e: $e");
+
+  // Assignment using Conditional Operator (?:)
+  // variable = condition ? expression1 : expression2
+  int base = 100;
+  bool isDoubled = true;
+  var res = isDoubled ? 2 * base : base;
+  print(res);
+
+  // Cascade Operator (..)
+  var mk = Person("Bar", firstName: "Foo");
+  mk
+    ..sayHi()
+    ..goodBye();
+}
+
+void printContentAndHash(arg) {
+  print("$arg with hashcode: ${arg.hashCode}");
 }
 
 String whySoSerious(int resp) {

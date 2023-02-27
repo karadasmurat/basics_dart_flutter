@@ -10,19 +10,33 @@
 
 // The superclass, or parent class (sometimes called base class),
 // contains all the attributes and behaviors that are common to classes that inherit from it.
-abstract class Person {
-  String name;
 
-  Person({required this.name});
+class Person {
+// abstract class Person {
 
-  // method with implementation, to be reused by subclasses.
+  String lastName; // non-nullable, lets make it positional
+  String firstName; // non-nullable, lets make required named parameter
+  String? middleName; // nullable, lets make it optional
+  int birthYear; // non-nullable, lets make it optional with a default value of 1900
+
+  Person(this.lastName,
+      {required this.firstName, this.middleName, this.birthYear = 1900});
+
   void sayHi() {
-    print("Hi! This is $name. Well, you see, abstract classes can have method implementation!");
+    print("Hi, this is this $lastName, $firstName");
+  }
+
+  void goodBye() {
+    print("Got to go now. See you later!");
   }
 
   // abstract method, without a body.
   // Implementations must be present in the concrete subclass.
-  void introduce();
+  // void introduce();
+
+  @override
+  String toString() =>
+      '{"fn": "$firstName", "m": "$middleName", "ln": "$lastName", "by": $birthYear}';
 }
 
 class Staff extends Person {
@@ -30,11 +44,11 @@ class Staff extends Person {
   String department;
 
   // also calling related super constructor
-  Staff({required super.name, this.department = "Pool"});
+  Staff(super.lastName, {required super.firstName, this.department = "Pool"});
 
   @override
   void introduce() {
-    print("This is $name from $department.");
+    print("This is $lastName from $department.");
   }
 
   // A new, specific to Staff method definition

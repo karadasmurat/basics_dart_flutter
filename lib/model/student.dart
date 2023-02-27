@@ -31,9 +31,9 @@ class Student extends Comparable {
 
 class Person {
   String lastName; // non-nullable, lets make it positional
-  String firstName; // non-nullable, lets make required named parameter.
+  String firstName; // non-nullable, lets make required named parameter
   String? middleName; // nullable, lets make it optional
-  int birthYear; // non-nullable, lets make it optional with a default value
+  int birthYear; // non-nullable, lets make it optional with a default value of 1900
 
   Person(this.lastName,
       {required this.firstName, this.middleName, this.birthYear = 1900});
