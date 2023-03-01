@@ -97,6 +97,8 @@ void main(List<String> args) {
   print(p02); // {"fn": "Ron", "m": "Bilius", "ln": "Weasley", "by": 1900}
   print(p03); // {"fn": "Hermione", "m": "null", "ln": "Granger", "by": 1979}
 
+  // Person p04 = Person("Old", firstName: "Dude", birthYear: 1000); // Failed assertion: line 23 pos 16: 'birthYear >= 1900': is not true.
+
   var exam01 = Exam();
   print(exam01); // {score: 0, calculatedScore: null, isTop: null}
 

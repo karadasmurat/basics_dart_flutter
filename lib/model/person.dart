@@ -19,8 +19,8 @@ class Person {
   String? middleName; // nullable, lets make it optional
   int birthYear; // non-nullable, lets make it optional with a default value of 1900
 
-  Person(this.lastName,
-      {required this.firstName, this.middleName, this.birthYear = 1900});
+  Person(this.lastName, {required this.firstName, this.middleName, this.birthYear = 1900})
+      : assert(birthYear >= 1900);
 
   void sayHi() {
     print("Hi, this is this $lastName, $firstName");
@@ -35,8 +35,14 @@ class Person {
   // void introduce();
 
   @override
-  String toString() =>
-      '{"fn": "$firstName", "m": "$middleName", "ln": "$lastName", "by": $birthYear}';
+  String toString() {
+    //return '${objectRuntimeType(this, 'Person')}('
+    return 'Person('
+        'firstName: $firstName, '
+        'middleName: $middleName, '
+        'lastName: $lastName, '
+        'birthYear: $birthYear)';
+  }
 }
 
 class Staff extends Person {
