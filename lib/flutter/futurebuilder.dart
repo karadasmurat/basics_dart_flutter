@@ -23,17 +23,17 @@ class _FutureBuilderDemoState extends State<FutureBuilderDemo> {
   }
 
   Future<List<Car>?> loadCars() async {
-    // simulate waiting time, then return a static list:
-    // await Future.delayed(const Duration(seconds: 3));
-    // return sampleCars;
+    // 1. simulate waiting time, then return a static list:
+    await Future.delayed(const Duration(seconds: 3));
+    return sampleCars;
 
-    // get documents from firestore
+    // 2. get documents from firestore
     //var cars = await getAllCars();
     //return cars;
 
-    // we can return null, as return type is Future<List<Car>?>
+    // 3. we can return null, as return type is Future<List<Car>?>
     // snapshot.hasData is false in this case
-    return null;
+    // return null;
   }
 
   Future<List<Car>> addCar() async {
@@ -53,8 +53,8 @@ class _FutureBuilderDemoState extends State<FutureBuilderDemo> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           FutureBuilder<List<Car>?>(
-              future: _cars,
-              builder: (context, snapshot) {
+              future: _cars, // loadCars(),
+              builder: (context, AsyncSnapshot snapshot) {
                 switch (snapshot.connectionState) {
                   case ConnectionState.done:
                     if (snapshot.hasData) {

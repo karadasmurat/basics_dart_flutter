@@ -1,5 +1,6 @@
 import 'package:basics_dart/flutter/animation_controller.dart';
 import 'package:basics_dart/flutter/constants.dart';
+import 'package:basics_dart/flutter/futurebuilder.dart';
 import 'package:basics_dart/flutter/listview.dart';
 import 'package:basics_dart/flutter/modal_bottom_sheet.dart';
 import 'package:basics_dart/flutter/scaffold.dart';
@@ -148,6 +149,15 @@ class _MyDrawerState extends State<MyDrawer> {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => AnimationDemo()),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.save),
+            title: const Text("FutureBuilder"),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => FutureBuilderDemo()),
               );
             },
           )

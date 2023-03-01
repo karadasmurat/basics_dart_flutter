@@ -5,7 +5,8 @@ import 'package:http/http.dart' as http;
 
 import 'car.dart';
 
-var sampleCars = [
+// Global - Import this library everywhere you need access to these fields.
+var sampleCars = <Car>[
   Car(2007, make: "ALFA ROMEO"),
   Car(2019, make: "AUDI"),
   Car(2022, make: "BENTLEY"),
