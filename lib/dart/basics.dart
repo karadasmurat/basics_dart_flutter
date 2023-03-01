@@ -69,14 +69,14 @@ On the web, the underlying int type is like a subtype of double: it’s a double
   var hexVal = 0xDEADBEEF;
 
   var notInitialized;
-  print("runtimeType: ${notInitialized.runtimeType}"); // Null
+  dev.log("runtimeType: ${notInitialized.runtimeType}"); // Null
 
   dynamic x;
-  print("x is $x and runtimeType is: ${x.runtimeType}");
+  dev.log("x is $x and runtimeType is: ${x.runtimeType}");
   x = 100;
-  print("x is $x and runtimeType is: ${x.runtimeType}");
+  dev.log("x is $x and runtimeType is: ${x.runtimeType}");
   x = "Hello World";
-  print("x is $x and runtimeType is: ${x.runtimeType}");
+  dev.log("x is $x and runtimeType is: ${x.runtimeType}");
 
   // The type of the name variable is inferred to be String.
   var name = 'Bob';
@@ -86,18 +86,18 @@ On the web, the underlying int type is like a subtype of double: it’s a double
 
   // Use the '$' character to reference a variable
   var fullname = "$Surname, $name";
-  print(fullname);
+  dev.log(fullname);
 
   var multiLineStr = ''' This
   is a
   multiline
   string.''';
 
-  print(multiLineStr);
+  dev.log(multiLineStr);
 
   // You can create a “raw” string by prefixing it with r:
   var rawStr = r'In a raw string, not even \n gets special treatment.';
-  print(rawStr);
+  dev.log(rawStr);
 
   // Check for an empty string.
   var fullName = '';
@@ -128,7 +128,7 @@ On the web, the underlying int type is like a subtype of double: it’s a double
   // Again the value assigned is immutable, however unlike a const value it cannot be known at compile time.
   // i.e DateTime.now(), you can’t use a const for it.
   final today = DateTime.now();
-  print('Today is day ${today.weekday}');
+  dev.log('Today is day ${today.weekday}');
 
   // Lists
   //In Dart, arrays are List objects, so most people just call them lists.
@@ -165,7 +165,7 @@ void operatorBasics() {
   int y = x++; // 11 10  .
   int z = --y; // 11  9  9
 
-  print("x: $x, y: $y, z: $z"); // x: 11, y: 9, z: 9
+  dev.log("x: $x, y: $y, z: $z"); // x: 11, y: 9, z: 9
 
   // Logical Operators - && || !
   // Relational Operators
@@ -178,7 +178,7 @@ void operatorBasics() {
   var c = a << 1; // *2 = 10
   var d = a << 2; // *4 = 20
   var e = b >> 3; // /8 = 3
-  print("c: $c d: $d e: $e");
+  dev.log("c: $c d: $d e: $e");
 
   // Assignment using Conditional Operator (?:)
   // variable = condition ? expression1 : expression2
@@ -195,7 +195,7 @@ void operatorBasics() {
 }
 
 void printContentAndHash(arg) {
-  print("$arg with hashcode: ${arg.hashCode}");
+  dev.log("$arg with hashcode: ${arg.hashCode}");
 }
 
 String whySoSerious(int resp) {
@@ -259,17 +259,17 @@ void listBasics() {
   int q = 1;
   // Whether the collection contains an element:
   if (myList.contains(q)) {
-    print("Element found: ${q} ");
+    dev.log("Element found: ${q} ");
   }
 
   // The "first" index of element in this list. Returns -1 if element is not found.
-  print("The first index of ${q} is: ${myList.indexOf(q)}"); // 0
+  dev.log("The first index of ${q} is: ${myList.indexOf(q)}"); // 0
 
   // The "last" index of element in this list. Returns -1 if element is not found.
-  print("The last index of ${q} is: ${myList.lastIndexOf(q)}"); // 2
+  dev.log("The last index of ${q} is: ${myList.lastIndexOf(q)}"); // 2
 
   // Remove the first occurrence of value from this list.
-  print("Removing first occurrence of 1:");
+  dev.log("Removing first occurrence of 1:");
   myList.remove(1); // [2, 1, 3]
   print(myList);
 
@@ -308,8 +308,8 @@ void listBasics() {
   var secondList = <String>['X', 'X'];
 
   //Access the item at specified index in a List using elementAt() method, or operator [].
-  print("mixedList[0]: ${mixedList[0]}");
-  print("The element at index 0 is: ${mixedList.elementAt(0)}");
+  dev.log("mixedList[0]: ${mixedList[0]}");
+  dev.log("The element at index 0 is: ${mixedList.elementAt(0)}");
   // print(items[10]); //RangeError
   // print("The element at index 10 is: ${mixedList.elementAt(10)}"); // RangeError
 
@@ -366,32 +366,32 @@ void listBasics() {
 
   // Filter elements from a List
   var grades = [60, 68, 47, 88, 62, 44, 92];
-  print("Grades: $grades");
+  dev.log("Grades: $grades");
 
   var passed = grades.where((e) => e > 60).toList(); //[68, 88, 62, 92]
-  print("Passed (Score > 60): $passed");
+  dev.log("Passed (Score > 60): $passed");
   var firstScoreWhoPassed = grades.firstWhere((e) => e > 60); // 68
-  print("$firstScoreWhoPassed");
+  dev.log("$firstScoreWhoPassed");
   var lastScoreWhoPassed = grades.lastWhere((e) => e > 60); // 92
-  print("$lastScoreWhoPassed");
+  dev.log("$lastScoreWhoPassed");
 
   // Sort a List
   // Sorts this list according to the order specified by the compare function. The default List implementations use Comparable.compare if compare is omitted.
   grades.sort();
-  print("Grades sorted: $grades");
+  dev.log("Grades sorted: $grades");
 
   // int compareTo(num other): returns a negative number if this is less than other, zero if they are equal, and a positive number if this is greater than other.
   // Thus, a Comparator may compare objects as equal (return zero), even if they are distinct objects.
   // The sort function is not guaranteed to be stable, so distinct objects that compare as equal may occur in any order in the result.
   var numbers = ['one', 'two', 'three', 'four'];
   numbers.sort(); // [four, one, three, two]
-  print("Default sorted: $numbers");
+  dev.log("Default sorted: $numbers");
   numbers.sort((a, b) => a.length.compareTo(b.length));
-  print("Sort using a comparator: $numbers");
+  dev.log("Sort using a comparator: $numbers");
   // [one, two, four, three] OR [two, one, four, three]
 
   students.sort(); // class Student extends Comparable and overrides compareTo()
-  print("Students sorted: $students");
+  dev.log("Students sorted: $students");
 
   // immutable (const) list
   const fruits = ["Apple", "Banana", "Strawberry"];
@@ -408,15 +408,15 @@ void listBasics() {
 }
 
 void printListInfo(List aList) {
-  print("=== List info ===");
+  dev.log("=== List info ===");
   print(aList);
-  print("runtimeType: ${aList.runtimeType}");
-  print("Number of elements in the list: ${aList.length}");
-  print("isEmpty: ${aList.isEmpty}");
+  dev.log("runtimeType: ${aList.runtimeType}");
+  dev.log("Number of elements in the list: ${aList.length}");
+  dev.log("isEmpty: ${aList.isEmpty}");
   if (!aList.isEmpty) {
     // aList.length > 0
-    print("First element: ${aList.first} || ${aList[0]}");
-    print("Last element: ${aList.last} || ${aList[aList.length - 1]}");
+    dev.log("First element: ${aList.first} || ${aList[0]}");
+    dev.log("Last element: ${aList.last} || ${aList[aList.length - 1]}");
   }
 
   // print("Reversed: ${aList.reversed}");
@@ -441,15 +441,15 @@ void setBasics() {
   // create and initialize a Set of integers with values using literal syntax
   var ids = {1, 2, 3};
   print(ids);
-  print('Number of elements: ${ids.length}');
+  dev.log('Number of elements: ${ids.length}');
 
   // Accessing an element by Index
   // Unlike a list, you cannot access an element at an index using square brackets [].
   // Instead, you can use the elementAt() method
   // print("The first element: ${ids[0]}"); // ERR The operator '[]' isn't defined.
-  print("The first element: ${ids.elementAt(0)}");
+  dev.log("The first element: ${ids.elementAt(0)}");
   // we can use the first and last property to access the first and last elements respectively.
-  print("The last element: ${ids.last}");
+  dev.log("The last element: ${ids.last}");
 
   // Adding element(s) to a set:
   ids.add(4); // {1, 2, 3, 4}
@@ -460,12 +460,12 @@ void setBasics() {
   // Remove value from the set:
   // Returns true if value was in the set, and false if not, has no effect if value was not in the set.
   bool isRemoved = ids.remove(3); // {1, 2, 4, 5}
-  if (isRemoved) print("Value is removed from set: $ids");
+  if (isRemoved) dev.log("Value is removed from set: $ids");
 
   // Find elements / Checking the existence in List
   int q = 3;
   if (ids.contains(q)) {
-    print("Element found in the set: ${q} ");
+    dev.log("Element found in the set: ${q} ");
   }
 
   // the union of two sets
@@ -503,7 +503,7 @@ void mapBasics() {
   //creating an empty map, option 01
   var map01 = {}; // Map<dynamic, dynamic> map01
   print(map01.runtimeType); // _InternalLinkedHashMap<dynamic, dynamic>
-  if (map01.isEmpty) print("Empty map: $map01");
+  if (map01.isEmpty) dev.log("Empty map: $map01");
 
   //creating an empty map, option 02
   var map02 = <String, int>{}; //Map<String, int> map02
@@ -519,22 +519,22 @@ void mapBasics() {
     "post": "Software Engineer",
   };
 
-  print("employee : $employee");
-  print("keys: ${employee.keys}");
+  dev.log("employee : $employee");
+  dev.log("keys: ${employee.keys}");
 
   var myCar = {
     "make": "Volkswagen",
     "year": 2019,
   };
 
-  print("myCar : $myCar");
+  dev.log("myCar : $myCar");
 
   // Accessing elements - Get the value for the key (key is like the index of list)
-  print('myCar["year"]: ${myCar["year"]}');
+  dev.log('myCar["year"]: ${myCar["year"]}');
 
   // Create or Set a new key:value pair
   myCar["model"] = "T-ROC";
-  print("The map: $myCar has a length of ${myCar.length}");
+  dev.log("The map: $myCar has a length of ${myCar.length}");
 
   // Each key has exactly one value associated with it.
   var secondCar = {"model": "Volkswagen", "year": 2019, "model": "Audi"};
@@ -547,26 +547,26 @@ void mapBasics() {
 
   // Iterate over Map
   // a. loop over keys
-  print("Iterate over keys:");
+  dev.log("Iterate over keys:");
   for (var key in employee.keys) {
-    print("$key : ${employee[key]}");
+    dev.log("$key : ${employee[key]}");
   }
 
   // b. loop over MapEntry<K, V> class represents a key/value pair representing an entry in a Map.
-  print("Iterate over entries:");
+  dev.log("Iterate over entries:");
   for (var entry in employee.entries) {
-    print("${entry.key} : ${entry.value}");
+    dev.log("${entry.key} : ${entry.value}");
   }
 
   // c. forEach() applies 'action' to each key/value pair of the map.
-  print("Iterate using forEach() method:");
+  dev.log("Iterate using forEach() method:");
   employee.forEach((key, value) {
-    print("key: $key, value: $value");
+    dev.log("key: $key, value: $value");
   });
 }
 
 Future<String> getNumber() {
-  print("Inside getNumber method...");
+  dev.log("Inside getNumber method...");
   return Future.delayed(
       const Duration(seconds: 5), () => "*** Beklediğiniz için teşekkürler.");
 }
@@ -574,9 +574,9 @@ Future<String> getNumber() {
 void printTitle(String arg) {
   // Dart: Strings can be "multiplied
   String line = "-" * arg.length;
-  print(line);
-  print(arg);
-  print(line);
+  dev.log(line);
+  dev.log(arg);
+  dev.log(line);
 }
 
 void listFunctionsBasics() {
@@ -604,11 +604,11 @@ void listFunctionsBasics() {
   var carsFiltered = cars.where(
     (e) => e.year > 2020,
   );
-  print("Newer cars: $carsFiltered");
+  dev.log("Newer cars: $carsFiltered");
 
   print(mixedList);
   var intList = mixedList.whereType<int>();
-  print("whereType<int>: $intList");
+  dev.log("whereType<int>: $intList");
 
   // remove all objects satisfy the test function (returns true)
   fruits.removeWhere((element) => element.contains(RegExp(r'[A-C]')));
@@ -653,29 +653,29 @@ void listFunctionsBasics() {
 void comparableBasics() {
   // compareTo method of num Class: Compares this to other.
   // Returns a negative number if this is less than other, zero if they are equal, and a positive number if this is greater than other.
-  print("1.compareTo(2): ${1.compareTo(2)}"); // => -1
-  print("2.compareTo(1): ${2.compareTo(1)}"); // => 1
-  print("1.compareTo(1): ${1.compareTo(1)}"); // => 0
+  dev.log("1.compareTo(2): ${1.compareTo(2)}"); // => -1
+  dev.log("2.compareTo(1): ${2.compareTo(1)}"); // => 1
+  dev.log("1.compareTo(1): ${1.compareTo(1)}"); // => 0
 }
 
 void iterateList(List arg) {
   //Option 1 - For Loop
-  print("Iterating the list $arg - Option 1: For Loop");
+  dev.log("Iterating the list $arg - Option 1: For Loop");
   for (var i = 0; i < arg.length; i++) {
-    print(arg[i]);
+    dev.log(arg[i]);
   }
 
   //Option 2 - For in Loop
-  print("Iterating the list $arg - Option 2: For in Loop");
+  dev.log("Iterating the list $arg - Option 2: For in Loop");
   for (var element in arg) {
-    print(element);
+    dev.log(element);
   }
 
   //Option 3 - forEach Loop
-  print("Iterating the list $arg - Option 3 - forEach Loop");
+  dev.log("Iterating the list $arg - Option 3 - forEach Loop");
   // invoke action for each element in iteration order
   arg.forEach(
-    (element) => print(element),
+    (element) => dev.log(element),
   );
   // short
   // arg.forEach(print);
@@ -735,23 +735,23 @@ void nullSafetyBasics() {
   printTitle("Null Safety Basics");
 
   String? mayBeNull;
-  print("mayBeNull is $mayBeNull"); // “mayBeNull is null"
+  dev.log("mayBeNull is $mayBeNull"); // “mayBeNull is null"
 
   // using the null-aware operator (?.) on a null value, evaluates to null.
   int? len = mayBeNull?.length;
-  print("mayBeNull?.length: $len");
-  print("mayBeNull?.toString(): ${mayBeNull?.toString()}"); // null
+  dev.log("mayBeNull?.length: $len");
+  dev.log("mayBeNull?.toString(): ${mayBeNull?.toString()}"); // null
 
   // When you use a null-aware operator in a method chain, if the receiver evaluates to null, then the entire rest of the method chain is short-circuited and skipped.
-  print("mayBeNull?.length.isEven.toString(): ${mayBeNull?.length.isEven.toString()}");
+  dev.log("mayBeNull?.length.isEven.toString(): ${mayBeNull?.length.isEven.toString()}");
 
   // Assignment using ?? operator
   // Returns the left-hand side if it is not null, and the right-hand side (default) otherwise.
   var code = mayBeNull ?? "DefaultCode";
-  print("= null ?? 'DefaultCode' : $code"); // false
+  dev.log("= null ?? 'DefaultCode' : $code"); // false
 
   var res = mayBeNull?.length ?? false;
-  print("mayBeNull?.length ?? false: $res"); // false
+  dev.log("mayBeNull?.length ?? false: $res"); // false
 
   print(mayReturnString());
 
@@ -759,7 +759,7 @@ void nullSafetyBasics() {
   int? x = returnNull();
   x ??= 0;
 
-  print("x: $x");
+  dev.log("x: $x");
 
   // A List of Strings, where the list itself can be null:
   List<String>? nums = ["Foo", "Bar"];
@@ -782,7 +782,7 @@ void processNullableList(List<String>? list) {
   // print(list.length); // ERR length can't be unconditionally accessed because the receiver can be 'null'.
 
   // using the null-aware operator (?.) on a null value, evaluates to null.
-  print("nullable argument length: ${list?.length}"); // nullable argument length: null
+  dev.log("nullable argument length: ${list?.length}"); // nullable argument length: null
 }
 
 // Arrow function
@@ -870,12 +870,12 @@ void functionBasics() {
 
 // A function can have any number of required positional parameters. (Cannot be missing or null)
 void sayHello_positionalParam(String name) {
-  print("Hello, $name!");
+  dev.log("Hello, $name!");
 }
 
 // Nullable positional parameters can be null. (Cannot be missing)
 void sayHello_positionalParamNullable(String? name) {
-  print("Hello $name!");
+  dev.log("Hello $name!");
 }
 
 // Named parameters { }
@@ -884,7 +884,7 @@ void sayHello_positionalParamNullable(String? name) {
 // sayHello_NamedParam(name: null); // Hello null!
 // sayHello_NamedParam(name: "Masal"); // Hello Masal!
 void sayHello_NamedParam({String? name}) {
-  print("Hello $name!");
+  dev.log("Hello $name!");
 }
 
 // If we have a named parameter that cannot be null:
@@ -894,7 +894,7 @@ void sayHello_NamedParam({String? name}) {
 // sayHello_NamedParamRequired(name: null);  // ERR The argument type 'Null' can't be assigned to the parameter type 'String'.
 // sayHello_NamedParamRequired(name: "Masal"); //Hello Masal!
 void sayHello_NamedParamRequired({required String name}) {
-  print("Hello $name!");
+  dev.log("Hello $name!");
 }
 
 // Default parameter values: arguman gecmesen de olur, varsayilan deger kullanilir.
@@ -905,15 +905,15 @@ void sayHello_NamedParamRequired({required String name}) {
 // sayHello_NamedParamDefault(name:null); // ERR The argument type 'Null' can't be assigned to the parameter type 'String'.
 // sayHello_NamedParamDefault(name: "Masal"); //Hello Masal!
 void sayHello_NamedParamDefault({String name = "Human"}) {
-  print("Hello $name!");
+  dev.log("Hello $name!");
 }
 
 // Named parameter required and it can be null.
 void sayHello_namedParamNullableRequired({required String? name}) {
-  print("Hello $name!");
+  dev.log("Hello $name!");
 }
 
 // Combination of Positional and Named Parameters, Positional First
 void sayHello_Combined(String myName, {String yourName = "Human"}) {
-  print("Hello $yourName, this is $myName");
+  dev.log("Hello $yourName, this is $myName");
 }
