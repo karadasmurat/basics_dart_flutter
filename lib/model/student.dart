@@ -29,27 +29,7 @@ class Student extends Comparable {
   }
 }
 
-class Person {
-  String lastName; // non-nullable, lets make it positional
-  String firstName; // non-nullable, lets make required named parameter
-  String? middleName; // nullable, lets make it optional
-  int birthYear; // non-nullable, lets make it optional with a default value of 1900
 
-  Person(this.lastName,
-      {required this.firstName, this.middleName, this.birthYear = 1900});
-
-  void sayHi() {
-    print("Hi, this is this $lastName, $firstName");
-  }
-
-  void goodBye() {
-    print("Got to go now. See you later!");
-  }
-
-  @override
-  String toString() =>
-      '{"fn": "$firstName", "m": "$middleName", "ln": "$lastName", "by": $birthYear}';
-}
 
 class Exam {
   final int score;

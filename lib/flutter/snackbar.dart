@@ -1,9 +1,8 @@
-import 'package:badges/badges.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+// In Flutter 3.7 the Badge widget was introduced in the Material library, so to escape the ambiguous imports
+import 'package:badges/badges.dart' as badges;
 
+import 'package:flutter/material.dart';
 import 'appbar.dart';
-import 'navigation_drawer.dart';
 
 class SnackBarDemo extends StatelessWidget {
   const SnackBarDemo({Key? key}) : super(key: key);
@@ -22,14 +21,14 @@ class SnackBarDemo extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Badge(
+              badges.Badge(
                 badgeContent: const Text(
                   "3",
                   style: TextStyle(color: Colors.white),
                 ),
-                position: BadgePosition.topEnd(),
+                position: badges.BadgePosition.topEnd(),
                 padding: EdgeInsets.all(8),
-                animationType: BadgeAnimationType.scale,
+                animationType: badges.BadgeAnimationType.scale,
                 child: const Card(
                   child: Padding(
                     padding: EdgeInsets.all(10.0),

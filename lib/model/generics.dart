@@ -13,6 +13,7 @@ Generics
 
  */
 
+// In this code, K and V are the stand-in type. They are placeholders that you can think of as a type that a developer will define later.
 class Pair<K, V> {
   final K key;
   final V value;
