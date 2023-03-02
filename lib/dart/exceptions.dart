@@ -59,6 +59,7 @@ class MKException implements Exception {
 }
 
 void doSomethingToSolveTheIssue() {
+  // Note that exception object is not needed for this specific implementation.
   print("Doing my best to handle the exception..");
 }
 

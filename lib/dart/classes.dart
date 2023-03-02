@@ -33,8 +33,8 @@ void main(List<String> args) {
   print(x.hashCode);
   print(y.hashCode);
 
-  var box01 = Box("Box01");
-  var box02 = Box("Box02");
+  var box01 = HolderWithStaticMembers("Box01");
+  var box02 = HolderWithStaticMembers("Box02");
 
   // Class level (static) variable - shared by all instances
   box01.increment();

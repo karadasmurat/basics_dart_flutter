@@ -30,6 +30,7 @@ The initializer list is also used to call other constructors like : super('Foo')
 
  */
 
+import '../model/shape.dart';
 import 'basics.dart';
 import '../model/person.dart';
 import '../model/student.dart';
@@ -131,4 +132,12 @@ void main(List<String> args) {
   print(phone03);
   print(phone04);
   print(identical(phone03, phone04)); // true, const canonicalizes.
+
+  // Factory constructor
+  // The same logic as the simple factory method above.
+  Shape circle02 = Shape.create(ShapeType.circle);
+  Shape rect02 = Shape.create(ShapeType.rectangle);
+
+  print("factory constructor created: $circle02");
+  print("factory constructor created: $rect02");
 }

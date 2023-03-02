@@ -1,5 +1,7 @@
 import 'dart:math';
 
+enum ShapeType { circle, rectangle }
+
 const double xOrigin = 0;
 const double yOrigin = 0;
 
@@ -58,7 +60,7 @@ class Point {
 
   @override
   String toString() {
-    return '{"x":$x, "y":$y}';
+    return 'Point("x":$x, "y":$y)';
   }
 }
 
@@ -66,6 +68,17 @@ abstract class Shape {
   String color;
 
   Shape(this.color);
+
+  // Factory constructor
+  // The same logic as a simple factory method.
+  factory Shape.create(ShapeType st) {
+    switch (st) {
+      case ShapeType.circle:
+        return Circle("black", radius: 11);
+      case ShapeType.rectangle:
+        return Rectangle("black", height: 11, width: 22);
+    }
+  }
 
   double area(); //abstract method, no body.
   void draw(); //abstract method, no body.
@@ -76,15 +89,15 @@ class Circle extends Shape {
   Circle(super.color, {required this.radius});
 
   @override
-  String toString() => "A $color Circle with radius $radius";
-
-  @override
   double area() => pi * radius * radius;
 
   @override
   void draw() {
-    print("Drawing a circle.");
+    print("Drawing Circle(color: $color, radius: $radius)");
   }
+
+  @override
+  String toString() => "Circle(color: $color, radius: $radius)";
 }
 
 class Rectangle extends Shape {
@@ -98,12 +111,9 @@ class Rectangle extends Shape {
 
   @override
   void draw() {
-    print("Drawing a rectangle.");
+    print("Drawing Rectangle(color: $color, width: $width, height: $height).");
   }
 
   @override
-  String toString() => "A $color Rectangle with width: $width and height: $height";
+  String toString() => "Rectangle(color: $color, width: $width, height: $height)";
 }
-
-/// A simple constructor demo with syntactic sugar and initializer list.
-
